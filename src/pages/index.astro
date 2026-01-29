@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../assets/icon.svg?raw';
+---
+
+<BaseLayout title="BlueVex — Próximamente">
+  <!-- Floating geometric elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <!-- Large blob -->
+    <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-secondary/5 blob float opacity-60"></div>
+
+    <!-- Geometric shapes -->
+    <div class="absolute top-1/4 left-10 w-2 h-20 bg-primary/10 float-delayed"></div>
+    <div class="absolute top-1/3 right-20 w-32 h-px bg-gradient-to-r from-secondary/40 to-transparent float"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-px h-32 bg-gradient-to-b from-primary/20 to-transparent float-delayed"></div>
+    <div class="absolute bottom-20 right-1/3 w-4 h-4 border border-secondary/30 rotate-45 float"></div>
+
+    <!-- Code fragments floating -->
+    <div class="absolute top-20 right-10 font-mono text-[10px] text-primary/15 float-delayed hidden md:block">
+      {"<init />"}
+    </div>
+    <div class="absolute bottom-32 left-20 font-mono text-[10px] text-primary/15 float hidden md:block">
+      {"{...loading}"}
+    </div>
+  </div>
+
+  <main class="relative min-h-screen flex flex-col">
+    <!-- Top bar -->
+    <header class="reveal p-6 md:p-8">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-secondary pulse-ring"></div>
+        <span class="font-mono text-xs text-primary/40 tracking-widest uppercase">Sistema en desarrollo</span>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <div class="flex-1 flex items-center px-6 md:px-8 lg:px-16">
+      <div class="w-full max-w-6xl mx-auto">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+
+          <!-- Left column: Main content -->
+          <div class="lg:col-span-7 space-y-8">
+            <!-- Brand -->
+            <div class="reveal reveal-delay-1">
+              <div class="inline-flex items-center gap-4 mb-6">
+                <!-- Logo mark -->
+                <div class="relative w-12 h-12 flex items-center justify-center">
+                  <div class="w-full h-full text-primary [&_svg]:w-full [&_svg]:h-full [&_svg]:fill-current" set:html={Icon} />
+                  <div class="absolute inset-0 bg-secondary/20 blur-xl -z-10"></div>
+                </div>
+                <span class="text-2xl font-bold tracking-tight">BlueVex</span>
+              </div>
+            </div>
+
+            <!-- Headline with glitch -->
+            <h1 class="reveal reveal-delay-2">
+              <span class="glitch text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
+                Próximamente<span class="cursor"></span>
+              </span>
+            </h1>
+
+            <!-- Divider -->
+            <div class="gradient-line w-full max-w-xs"></div>
+
+            <!-- Description -->
+            <p class="reveal reveal-delay-3 text-lg md:text-xl text-primary/60 max-w-md leading-relaxed">
+              Ingeniería de software para
+              <span class="text-primary font-medium">PYMEs que piensan en grande</span>
+            </p>
+
+            <!-- Code block style info -->
+            <div class="reveal reveal-delay-4 code-block p-4 max-w-sm bg-primary/[0.02]">
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-secondary">$</span>
+                <span class="text-primary/80">bluevex</span>
+                <span class="text-primary/40">--status</span>
+              </div>
+              <div class="text-primary/50 text-xs space-y-1">
+                <p><span class="text-secondary">→</span> continuidad: <span class="text-emerald-600">garantizada</span></p>
+                <p><span class="text-secondary">→</span> fiabilidad: <span class="text-emerald-600">probada</span></p>
+                <p><span class="text-secondary">→</span> evolución: <span class="text-amber-600">en progreso...</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: Abstract visual -->
+          <div class="lg:col-span-5 reveal reveal-delay-5 hidden lg:block">
+            <div class="relative aspect-square max-w-md mx-auto">
+              <!-- Animated hexagon structure -->
+              <svg class="w-full h-full" viewBox="0 0 400 400" fill="none">
+                <!-- Outer ring -->
+                <path
+                  d="M200 40L340 100V260L200 360L60 260V100L200 40Z"
+                  stroke="currentColor"
+                  stroke-width="0.5"
+                  class="text-primary/20 float"
+                />
+                <!-- Middle ring -->
+                <path
+                  d="M200 80L300 120V240L200 320L100 240V120L200 80Z"
+                  stroke="currentColor"
+                  stroke-width="0.5"
+                  class="text-secondary/40 float-delayed"
+                />
+                <!-- Inner hexagon -->
+                <path
+                  d="M200 120L260 150V210L200 280L140 210V150L200 120Z"
+                  fill="currentColor"
+                  class="text-secondary/10"
+                />
+                <!-- Core -->
+                <path
+                  d="M200 160L230 175V205L200 240L170 205V175L200 160Z"
+                  fill="currentColor"
+                  class="text-primary"
+                />
+                <!-- Connection lines -->
+                <line x1="200" y1="40" x2="200" y2="120" stroke="currentColor" stroke-width="0.5" class="text-primary/15"/>
+                <line x1="340" y1="100" x2="260" y2="150" stroke="currentColor" stroke-width="0.5" class="text-primary/15"/>
+                <line x1="60" y1="100" x2="140" y2="150" stroke="currentColor" stroke-width="0.5" class="text-primary/15"/>
+
+                <!-- Data points -->
+                <circle cx="200" cy="40" r="3" fill="currentColor" class="text-secondary/60"/>
+                <circle cx="340" cy="100" r="3" fill="currentColor" class="text-secondary/60"/>
+                <circle cx="340" cy="260" r="3" fill="currentColor" class="text-secondary/60"/>
+                <circle cx="200" cy="360" r="3" fill="currentColor" class="text-secondary/60"/>
+                <circle cx="60" cy="260" r="3" fill="currentColor" class="text-secondary/60"/>
+                <circle cx="60" cy="100" r="3" fill="currentColor" class="text-secondary/60"/>
+              </svg>
+
+              <!-- Decorative labels -->
+              <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full font-mono text-[10px] text-primary/30">
+                node_0x1A
+              </div>
+              <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full font-mono text-[10px] text-primary/30">
+                root_sys
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <footer class="reveal reveal-delay-6 p-6 md:p-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-6">
+          <span class="font-mono text-xs text-primary/30">v0.0.1-alpha</span>
+          <div class="h-4 w-px bg-primary/10"></div>
+          <span class="font-mono text-xs text-primary/30">ES</span>
+        </div>
+
+        <div class="font-mono text-sm text-primary/50">
+          <span class="text-secondary">//</span> bluevex.tech
+        </div>
+
+        <div class="font-mono text-[10px] text-primary/20 tracking-wider">
+          2025 — BUILDING THE FUTURE
+        </div>
+      </div>
+    </footer>
+  </main>
+</BaseLayout>

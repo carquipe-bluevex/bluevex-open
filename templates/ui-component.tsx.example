@@ -1,0 +1,17 @@
+// templates/ui-component.tsx
+import React from 'react';
+import { cn } from '@/lib/utils';
+
+interface ComponentNameProps {
+  children: React.ReactNode;
+  className?: string;
+  // Add other props here
+}
+
+export function ComponentName({ children, className, ...props }: ComponentNameProps) {
+  return (
+    <div className={cn('base-styles', className)} {...props}>
+      {children}
+    </div>
+  );
+}
