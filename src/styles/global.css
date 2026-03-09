@@ -12,6 +12,10 @@
     font-feature-settings: "ss01", "ss02", "cv01";
   }
 
+  .dark body {
+    @apply bg-[#060a10] text-white;
+  }
+
   ::selection {
     @apply bg-secondary text-white;
   }
@@ -32,6 +36,17 @@
     );
     pointer-events: none;
     z-index: 100;
+  }
+
+  /* Scanlines more intense for dark mode */
+  .dark .scanlines::before {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(47, 164, 217, 0.012) 2px,
+      rgba(47, 164, 217, 0.012) 4px
+    );
   }
 
   /* Noise texture - lighter for light mode */
@@ -102,6 +117,13 @@
       linear-gradient(90deg, rgba(22, 38, 76, 0.03) 1px, transparent 1px);
     background-size: 60px 60px;
     background-position: center center;
+  }
+
+  /* Grid background for dark mode */
+  .dark .grid-bg {
+    background-image:
+      linear-gradient(rgba(47, 164, 217, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(47, 164, 217, 0.04) 1px, transparent 1px);
   }
 
   /* Floating elements */
@@ -191,6 +213,11 @@
     @apply font-mono text-sm;
     background: linear-gradient(135deg, rgba(47, 164, 217, 0.05), transparent);
     border-left: 2px solid #2FA4D9;
+  }
+
+  /* Code block style for dark mode */
+  .dark .code-block {
+    background: linear-gradient(135deg, rgba(47, 164, 217, 0.15), transparent);
   }
 
   /* Morphing blob */
