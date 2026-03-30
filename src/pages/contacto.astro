@@ -109,6 +109,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
               <div
                 class="cf-turnstile"
                 data-sitekey={turnstileSiteKey}
+                data-appearance="always"
                 data-action="contact_form"
                 data-callback="bluevexOnContactTurnstileSuccess"
                 data-expired-callback="bluevexOnContactTurnstileExpired"
@@ -116,6 +117,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
                 data-turnstile-widget
               ></div>
               <p class="form-status" data-form-status aria-live="polite"></p>
+              <button type="button" class="form-status-retry" data-turnstile-retry hidden>
+                Reintentar verificacion
+              </button>
             </div>
           )}
 
@@ -531,6 +535,22 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
   .form-status[data-state='error'] {
     color: var(--color-error);
+  }
+
+  .form-status-retry {
+    margin-top: var(--space-2);
+    border: 1px solid var(--color-gray-300);
+    background: var(--color-white);
+    color: var(--color-navy);
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .form-status-retry:hover {
+    border-color: var(--color-navy);
   }
 
   /* RESPONSIVE */

@@ -1,6 +1,7 @@
 type TurnstileConfig = {
   widgetSelector?: string;
   statusSelector?: string;
+  retrySelector?: string;
   callbackNames?: {
     success: string;
     expired: string;
@@ -15,6 +16,10 @@ type AsyncFormOptions = {
 type TurnstileApi = {
   reset?: (target?: HTMLElement | string) => void;
   execute?: (target?: HTMLElement | string) => void;
+  render?: (
+    target: HTMLElement | string,
+    options?: Record<string, string>,
+  ) => string;
 };
 
 declare global {
@@ -85,6 +90,58 @@ export function initAsyncForm(
   const turnstileWidget = form.querySelector<HTMLElement>(widgetSelector);
   const hasTurnstile = Boolean(turnstileWidget);
   const enforceTurnstile = hasTurnstile && !import.meta.env.DEV;
+  const retrySelector =
+    options.turnstile?.retrySelector || "[data-turnstile-retry]";
+  const retryButton = form.querySelector<HTMLButtonElement>(retrySelector);
+
+  const setRetryVisible = (visible: boolean) => {
+    if (!retryButton) return;
+    retryButton.hidden = !visible;
+  };
+
+  const isWidgetRendered = () => {
+    if (!turnstileWidget) return false;
+    return Boolean(turnstileWidget.querySelector("iframe"));
+  };
+
+  const loadTurnstileScript = async () => {
+    if (window.turnstile) {
+      return true;
+    }
+
+    const scriptSrc = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      `script[src^="${scriptSrc}"]`,
+    );
+
+    if (existingScript) {
+      return new Promise<boolean>((resolve) => {
+        existingScript.addEventListener(
+          "load",
+          () => resolve(Boolean(window.turnstile)),
+          {
+            once: true,
+          },
+        );
+        existingScript.addEventListener("error", () => resolve(false), {
+          once: true,
+        });
+
+        window.setTimeout(() => {
+          resolve(Boolean(window.turnstile));
+        }, 3000);
+      });
+    }
+
+    return new Promise<boolean>((resolve) => {
+      const script = document.createElement("script");
+      script.src = `${scriptSrc}?retry=${Date.now()}`;
+      script.defer = true;
+      script.onload = () => resolve(Boolean(window.turnstile));
+      script.onerror = () => resolve(false);
+      document.head.appendChild(script);
+    });
+  };
 
   const getTurnstileToken = () => {
     const tokenField = form.querySelector<HTMLInputElement>(
@@ -100,6 +157,7 @@ export function initAsyncForm(
     if (hasToken) {
       setButtonDisabled(false);
       setStatus("Verificacion anti-spam completada.", "ok");
+      setRetryVisible(false);
       return;
     }
 
@@ -117,6 +175,7 @@ export function initAsyncForm(
   if (enforceTurnstile) {
     setButtonDisabled(true);
     setStatus("Cargando verificacion anti-spam...", "idle");
+    setRetryVisible(false);
 
     const callbackNames = options.turnstile?.callbackNames;
     if (callbackNames) {
@@ -126,6 +185,7 @@ export function initAsyncForm(
 
       window[callbackNames.expired] = () => {
         setButtonDisabled(true);
+        setRetryVisible(false);
         setStatus(
           "La verificacion ha caducado. Vuelve a completarla para enviar.",
           "error",
@@ -134,8 +194,9 @@ export function initAsyncForm(
 
       window[callbackNames.error] = () => {
         setButtonDisabled(true);
+        setRetryVisible(true);
         setStatus(
-          "No hemos podido validar el captcha. Intenta recargarlo.",
+          'No hemos podido validar el captcha. Pulsa "Reintentar verificacion".',
           "error",
         );
       };
@@ -147,6 +208,16 @@ export function initAsyncForm(
 
     window.setTimeout(() => {
       if (getTurnstileToken()) return;
+
+      if (!isWidgetRendered()) {
+        setRetryVisible(true);
+        setStatus(
+          'No se ha cargado la verificacion anti-spam. Pulsa "Reintentar verificacion".',
+          "error",
+        );
+        return;
+      }
+
       setStatus(
         "La verificacion esta tardando mas de lo normal. Si no aparece, recarga la pagina.",
         "error",
@@ -156,6 +227,63 @@ export function initAsyncForm(
     window.setTimeout(() => {
       window.clearInterval(readinessInterval);
     }, 30000);
+
+    retryButton?.addEventListener("click", async (event) => {
+      event.preventDefault();
+      setRetryVisible(false);
+      setButtonDisabled(true);
+      setStatus("Recargando verificacion anti-spam...", "idle");
+
+      const loaded = await loadTurnstileScript();
+      if (!loaded) {
+        setRetryVisible(true);
+        setStatus(
+          "No se pudo cargar el captcha. Revisa bloqueadores o red e intentalo de nuevo.",
+          "error",
+        );
+        return;
+      }
+
+      if (turnstileWidget && !isWidgetRendered()) {
+        const widgetOptions: Record<string, string> = {
+          sitekey: turnstileWidget.dataset.sitekey || "",
+        };
+
+        if (turnstileWidget.dataset.action) {
+          widgetOptions.action = turnstileWidget.dataset.action;
+        }
+
+        if (turnstileWidget.dataset.callback) {
+          widgetOptions.callback = turnstileWidget.dataset.callback;
+        }
+
+        if (turnstileWidget.dataset.expiredCallback) {
+          widgetOptions["expired-callback"] =
+            turnstileWidget.dataset.expiredCallback;
+        }
+
+        if (turnstileWidget.dataset.errorCallback) {
+          widgetOptions["error-callback"] =
+            turnstileWidget.dataset.errorCallback;
+        }
+
+        if (widgetOptions.sitekey) {
+          try {
+            window.turnstile?.render?.(turnstileWidget, widgetOptions);
+          } catch {
+            setRetryVisible(true);
+          }
+        }
+      }
+
+      refreshTurnstileState();
+      if (!getTurnstileToken()) {
+        setStatus(
+          "Completa la verificacion anti-spam para poder enviar.",
+          "idle",
+        );
+      }
+    });
   }
 
   form.addEventListener("submit", async (event) => {
@@ -172,12 +300,18 @@ export function initAsyncForm(
       setButtonDisabled(true);
       setStatus("Debes completar primero la verificacion anti-spam.", "error");
 
-      if (turnstileWidget) {
+      if (window.turnstile && turnstileWidget) {
         try {
           window.turnstile?.execute?.(turnstileWidget);
         } catch {
           resetTurnstile();
         }
+      } else {
+        setRetryVisible(true);
+        setStatus(
+          'No se ha cargado la verificacion. Pulsa "Reintentar verificacion".',
+          "error",
+        );
       }
 
       return;

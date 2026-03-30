@@ -169,6 +169,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
             <div
               class="cf-turnstile"
               data-sitekey={turnstileSiteKey}
+              data-appearance="always"
               data-action="talent_form"
               data-callback="bluevexOnTalentTurnstileSuccess"
               data-expired-callback="bluevexOnTalentTurnstileExpired"
@@ -176,6 +177,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
               data-turnstile-widget
             ></div>
             <p class="form-status" data-form-status aria-live="polite"></p>
+            <button type="button" class="form-status-retry" data-turnstile-retry hidden>
+              Reintentar verificacion
+            </button>
           </div>
         )}
 
@@ -281,6 +285,18 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
   }
   .form-status[data-state='ok'] { color: var(--color-success); }
   .form-status[data-state='error'] { color: var(--color-error); }
+  .form-status-retry {
+    margin-top: var(--space-2);
+    border: 1px solid var(--color-gray-300);
+    background: var(--color-white);
+    color: var(--color-navy);
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  .form-status-retry:hover { border-color: var(--color-navy); }
   .hidden { display:none; }
 
   @media (max-width:768px) { .offer-grid { grid-template-columns:1fr; } .form-row { grid-template-columns:1fr; } }
