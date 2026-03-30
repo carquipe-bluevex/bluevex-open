@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/layout/Section.astro';
 
-const lastUpdated = '26 de marzo de 2026';
+const lastUpdated = '30 de marzo de 2026';
 ---
 
 <BaseLayout
@@ -22,37 +22,34 @@ const lastUpdated = '26 de marzo de 2026';
     <div class="legal-content">
 
       <h2>1. ¿Qué son las cookies?</h2>
-      <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Sirven para que el sitio recuerde tus preferencias, analice cómo lo usas o muestre contenido relevante.</p>
+      <p>Las cookies y tecnologias similares son pequeños ficheros o mecanismos de almacenamiento que se guardan en tu dispositivo cuando visitas un sitio web. Sirven para recordar tus preferencias, garantizar el funcionamiento del sitio y, si lo autorizas, analizar su uso.</p>
 
       <h2>2. Tipos de cookies que utilizamos</h2>
 
-      <h3>Cookies técnicas o esenciales</h3>
-      <p>Son imprescindibles para el funcionamiento del sitio. Sin ellas, no podríamos ofrecerte determinadas funcionalidades. No requieren tu consentimiento.</p>
+      <h3>Cookies tecnicas o esenciales</h3>
+      <p>Son imprescindibles para el funcionamiento del sitio. No requieren tu consentimiento, pero si informacion previa.</p>
       <div class="cookie-table">
         <div class="cookie-row cookie-row--header">
-          <span>Nombre</span><span>Proveedor</span><span>Finalidad</span><span>Duración</span>
+          <span>Nombre</span><span>Proveedor</span><span>Finalidad</span><span>Duracion</span>
         </div>
         <div class="cookie-row">
-          <span><code>cookie_consent</code></span><span>BlueVex</span><span>Almacena las preferencias de cookies del usuario</span><span>1 año</span>
+          <span><code>bluevex_cookie_consent</code></span><span>BlueVex</span><span>Guardar la eleccion de consentimiento (necesarias/analiticas)</span><span>12 meses</span>
         </div>
       </div>
 
-      <h3>Cookies analíticas</h3>
-      <p>Nos permiten analizar el uso del sitio web de forma anónima para mejorar su funcionamiento y contenidos. Solo se activan si das tu consentimiento.</p>
+      <h3>Cookies analiticas</h3>
+      <p>Solo se activan si das tu consentimiento expreso. Nos permiten medir el uso del sitio para mejorar su funcionamiento y contenidos.</p>
       <div class="cookie-table">
         <div class="cookie-row cookie-row--header">
-          <span>Nombre</span><span>Proveedor</span><span>Finalidad</span><span>Duración</span>
+          <span>Servicio</span><span>Proveedor</span><span>Finalidad</span><span>Base legal</span>
         </div>
         <div class="cookie-row">
-          <span><code>_ga</code></span><span>Google Analytics</span><span>Distingue usuarios únicos</span><span>2 años</span>
-        </div>
-        <div class="cookie-row">
-          <span><code>_ga_*</code></span><span>Google Analytics</span><span>Mantiene el estado de la sesión</span><span>2 años</span>
+          <span><code>Umami Analytics</code></span><span>Umami Software, Inc.</span><span>Medicion agregada de visitas, paginas vistas y eventos de navegacion</span><span>Consentimiento (art. 6.1.a RGPD)</span>
         </div>
       </div>
 
-      <h2>3. Cómo gestionar tus preferencias</h2>
-      <p>Puedes gestionar tus preferencias de cookies en cualquier momento a través del banner de cookies que aparece al visitar nuestro sitio. También puedes configurar tu navegador para bloquear o eliminar cookies:</p>
+      <h2>3. Como gestionar tus preferencias</h2>
+      <p>Puedes gestionar tus preferencias en cualquier momento desde el enlace "Configurar cookies" del pie de pagina o a traves del banner inicial. Tambien puedes configurar tu navegador para bloquear o eliminar cookies:</p>
       <ul>
         <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
         <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener">Mozilla Firefox</a></li>
@@ -61,8 +58,8 @@ const lastUpdated = '26 de marzo de 2026';
       </ul>
       <p>Ten en cuenta que bloquear las cookies técnicas puede afectar al funcionamiento del sitio.</p>
 
-      <h2>4. Cookies de terceros</h2>
-      <p>Algunas cookies son instaladas por servicios de terceros que aparecen en nuestras páginas (como Google Analytics). Estos terceros tienen sus propias políticas de privacidad, que te recomendamos consultar.</p>
+      <h2>4. Servicios de terceros</h2>
+      <p>Si aceptas las cookies analiticas, se cargara Umami Analytics. Este proveedor puede tratar datos tecnicos de navegacion para prestar el servicio de analitica. Puedes consultar su politica de privacidad en <a href="https://umami.is/privacy" target="_blank" rel="noopener">umami.is/privacy</a>.</p>
 
       <h2>5. Más información</h2>
       <p>Para cualquier consulta sobre el uso de cookies, puedes contactarnos en <a href="mailto:dpo@bluevex.tech">dpo@bluevex.tech</a> o consultar la <a href="/privacidad">Política de Privacidad</a>.</p>

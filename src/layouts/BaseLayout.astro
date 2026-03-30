@@ -6,6 +6,7 @@
 
 import { ClientRouter } from 'astro:transitions';
 import SpeedInsights from '@vercel/speed-insights/astro';
+import CookieConsent from '../components/cookies/CookieConsent.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import faviconIsotype from '../assets/business_isotype.png';
@@ -88,12 +89,6 @@ const fullTitle = title.includes('BlueVex') ? title : `${title} | BlueVex`;
     {/* Theme color */}
     <meta name="theme-color" content="#16264C" />
 
-    <script
-      defer
-      src="https://cloud.umami.is/script.js"
-      data-website-id="6b02885f-f054-499b-9e62-1ff78b3c8f8d"
-    ></script>
-
     <slot name="head" />
 
     {/* Structured data — Organization + LocalBusiness */}
@@ -154,6 +149,7 @@ const fullTitle = title.includes('BlueVex') ? title : `${title} | BlueVex`;
       <slot />
     </main>
 
+    <CookieConsent />
     <Footer />
     <SpeedInsights />
   </body>

@@ -94,6 +94,10 @@ const legalLinks = [
             {i < legalLinks.length - 1 && <span aria-hidden="true">·</span>}
           </>
         ))}
+        <span aria-hidden="true">·</span>
+        <button type="button" class="footer__legal-link footer__legal-button" data-open-cookie-preferences>
+          Configurar cookies
+        </button>
       </nav>
     </div>
 
@@ -208,6 +212,14 @@ const legalLinks = [
     text-decoration: none;
     transition: color var(--transition-fast);
   }
+
+  .footer__legal-button {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
   .footer__legal-link:hover { color: var(--color-gray-400); }
 
   .footer__legal span {
