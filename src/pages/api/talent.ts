@@ -11,6 +11,25 @@ import { handleTalentSubmission } from "../../features/forms/server/handlers/tal
 
 const MAX_BODY_SIZE = 11 * 1024 * 1024;
 
+export function GET({ request }: { request: Request }) {
+  const acceptsHtml =
+    request.headers.get("accept")?.includes("text/html") ?? false;
+
+  if (acceptsHtml) {
+    return new Response(null, {
+      status: 303,
+      headers: {
+        Location: "/talento?error=invalid_method",
+        "Cache-Control": "no-store",
+      },
+    });
+  }
+
+  return createTextResponse("Method not allowed", 405, {
+    Allow: "POST",
+  });
+}
+
 export async function POST({ request }: { request: Request }) {
   try {
     if (
