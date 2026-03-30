@@ -33,6 +33,9 @@ const {
 const siteName = 'BlueVex';
 const siteUrl  = 'https://www.bluevex.tech';
 const fullTitle = title.includes('BlueVex') ? title : `${title} | BlueVex`;
+const socialImage = image.startsWith('http://') || image.startsWith('https://')
+  ? image
+  : `${siteUrl}${image.startsWith('/') ? image : `/${image}`}`;
 ---
 
 <!doctype html>
@@ -53,7 +56,12 @@ const fullTitle = title.includes('BlueVex') ? title : `${title} | BlueVex`;
     <meta property="og:url"         content={`${siteUrl}${currentPath}`} />
     <meta property="og:title"       content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image"       content={`${siteUrl}${image}`} />
+    <meta property="og:image"       content={socialImage} />
+    <meta property="og:image:secure_url" content={socialImage} />
+    <meta property="og:image:type"  content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt"   content="BlueVex — Tecnología que marca el rumbo" />
     <meta property="og:site_name"   content={siteName} />
     <meta property="og:locale"      content="es_ES" />
 
@@ -61,7 +69,8 @@ const fullTitle = title.includes('BlueVex') ? title : `${title} | BlueVex`;
     <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:title"       content={fullTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image"       content={`${siteUrl}${image}`} />
+    <meta name="twitter:image"       content={socialImage} />
+    <meta name="twitter:image:alt"   content="BlueVex — Tecnología que marca el rumbo" />
 
     {/* Canonical */}
     <link rel="canonical" href={`${siteUrl}${currentPath}`} />
