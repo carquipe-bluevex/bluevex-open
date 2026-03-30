@@ -115,12 +115,13 @@ const navLinks = [
     top: var(--space-4);
     left: var(--space-4);
     right: var(--space-4);
-    z-index: var(--z-nav);
+    z-index: 1000;
     background: transparent;
     backdrop-filter: none;
     border: 1px solid transparent;
     border-radius: var(--radius-xl);
     box-shadow: none;
+    isolation: isolate;
     transition: top var(--transition-slow), left var(--transition-slow), right var(--transition-slow),
                 border-radius var(--transition-slow), box-shadow var(--transition-slow),
                 background-color var(--transition-slow), border-color var(--transition-slow),
