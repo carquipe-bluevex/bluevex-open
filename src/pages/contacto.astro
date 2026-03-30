@@ -20,7 +20,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
       <link rel="dns-prefetch" href="//challenges.cloudflare.com" />
       <link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin="anonymous" />
       <link rel="preload" href="https://challenges.cloudflare.com/turnstile/v0/api.js" as="script" crossorigin="anonymous" />
-      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async></script>
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
     </Fragment>
   )}
 
@@ -59,7 +59,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
           <div class="form-field">
             <label class="form-label" for="email">Email *</label>
-            <input class="form-input" type="email" id="email" name="email" placeholder="tu@empresa.com" value={prefillEmail} required />
+            <input class="form-input" type="email" id="email" name="email" placeholder="tu@empresa.com" value={prefillEmail} data-contact-email required />
           </div>
 
           <div class="form-row">
@@ -106,7 +106,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
           {turnstileSiteKey && (
             <div class="form-captcha">
-              <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+              <div
+                class="cf-turnstile"
+                data-sitekey={turnstileSiteKey}
+                data-action="contact_form"
+                data-callback="bluevexOnContactTurnstileSuccess"
+                data-expired-callback="bluevexOnContactTurnstileExpired"
+                data-error-callback="bluevexOnContactTurnstileError"
+                data-turnstile-widget
+              ></div>
+              <p class="form-status" data-form-status aria-live="polite"></p>
             </div>
           )}
 
@@ -181,7 +190,49 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 <script>
   import { initAsyncForm } from '../features/forms/client/form-submit';
 
-  initAsyncForm('.contact-form', '/contacto?sent=1');
+  initAsyncForm('.contact-form', '/contacto?sent=1', {
+    turnstile: {
+      widgetSelector: '[data-turnstile-widget]',
+      statusSelector: '[data-form-status]',
+      callbackNames: {
+        success: 'bluevexOnContactTurnstileSuccess',
+        expired: 'bluevexOnContactTurnstileExpired',
+        error: 'bluevexOnContactTurnstileError',
+      },
+    },
+  });
+
+  const CONTACT_EMAIL_PREFILL_KEY = 'bluevex_prefill_email';
+
+  const clearPrefillOnSuccess = () => {
+    const isSent = new URL(window.location.href).searchParams.get('sent') === '1';
+    if (!isSent) return;
+
+    window.sessionStorage.removeItem(CONTACT_EMAIL_PREFILL_KEY);
+  };
+
+  const prefillContactEmail = () => {
+    const emailInput = document.querySelector('input[data-contact-email]');
+    if (!(emailInput instanceof HTMLInputElement)) return;
+
+    const queryEmail = new URL(window.location.href).searchParams.get('email')?.trim() ?? '';
+    const sessionEmail = window.sessionStorage.getItem(CONTACT_EMAIL_PREFILL_KEY)?.trim() ?? '';
+    const nextEmail = queryEmail || sessionEmail;
+
+    if (!nextEmail || emailInput.value.trim()) return;
+
+    emailInput.value = nextEmail;
+    if (queryEmail) {
+      window.sessionStorage.setItem(CONTACT_EMAIL_PREFILL_KEY, queryEmail);
+    }
+  };
+
+  clearPrefillOnSuccess();
+  prefillContactEmail();
+  document.addEventListener('astro:page-load', () => {
+    clearPrefillOnSuccess();
+    prefillContactEmail();
+  });
 </script>
 
 <style>
@@ -463,6 +514,23 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
   .form-captcha {
     margin-top: var(--space-2);
+    min-height: 92px;
+  }
+
+  .form-status {
+    margin-top: var(--space-2);
+    font-size: var(--text-body-s);
+    line-height: 1.5;
+    color: var(--color-gray-600);
+    min-height: 22px;
+  }
+
+  .form-status[data-state='ok'] {
+    color: var(--color-success);
+  }
+
+  .form-status[data-state='error'] {
+    color: var(--color-error);
   }
 
   /* RESPONSIVE */

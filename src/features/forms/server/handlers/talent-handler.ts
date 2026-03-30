@@ -29,7 +29,7 @@ export async function handleTalentSubmission(params: {
   if (isTurnstileEnabled()) {
     const token = fields["cf-turnstile-response"] || "";
     const ip = getClientIp(params.request);
-    const captchaValid = await verifyTurnstileToken(token, ip);
+    const captchaValid = await verifyTurnstileToken(token, ip, "talent_form");
     if (!captchaValid) {
       return createTextResponse("Invalid captcha", 400);
     }

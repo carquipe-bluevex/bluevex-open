@@ -65,14 +65,19 @@ const policyVersion = '2026-03-30';
     const UMAMI_SCRIPT_ID = 'bluevex-umami-script';
     const UMAMI_SRC = 'https://cloud.umami.is/script.js';
     const UMAMI_WEBSITE_ID = '6b02885f-f054-499b-9e62-1ff78b3c8f8d';
+    const BOUND_KEY = '__bluevexCookieConsentBound';
 
-    const banner = document.getElementById('cookie-consent-banner');
-    const preferences = document.getElementById('cookie-preferences');
-    const analyticsToggle = document.getElementById('cookie-analytics-toggle');
+    const getElements = () => {
+      const banner = document.getElementById('cookie-consent-banner');
+      const preferences = document.getElementById('cookie-preferences');
+      const analyticsToggle = document.getElementById('cookie-analytics-toggle');
 
-    if (!(banner instanceof HTMLElement) || !(preferences instanceof HTMLElement) || !(analyticsToggle instanceof HTMLInputElement)) {
-      return;
-    }
+      if (!(banner instanceof HTMLElement)) return null;
+      if (!(preferences instanceof HTMLElement)) return null;
+      if (!(analyticsToggle instanceof HTMLInputElement)) return null;
+
+      return { banner, preferences, analyticsToggle };
+    };
 
     const readConsent = () => {
       try {
@@ -129,83 +134,104 @@ const policyVersion = '2026-03-30';
     };
 
     const openPreferences = () => {
+      const elements = getElements();
+      if (!elements) return;
+
       const consent = readConsent();
-      analyticsToggle.checked = Boolean(consent && consent.analytics);
-      preferences.hidden = false;
+      elements.analyticsToggle.checked = Boolean(consent && consent.analytics);
+      elements.preferences.hidden = false;
     };
 
     const closePreferences = () => {
-      preferences.hidden = true;
+      const elements = getElements();
+      if (!elements) return;
+
+      elements.preferences.hidden = true;
     };
 
     const hideBanner = () => {
-      banner.hidden = true;
-    };
+      const elements = getElements();
+      if (!elements) return;
 
-    const showBanner = () => {
-      banner.hidden = false;
+      elements.banner.hidden = true;
     };
 
     const bootstrap = () => {
+      const elements = getElements();
+      if (!elements) return;
+
       const consent = readConsent();
       if (!hasValidConsent(consent)) {
-        showBanner();
+        elements.banner.hidden = false;
         return;
       }
+
       applyConsent(consent);
-      hideBanner();
+      elements.banner.hidden = true;
     };
 
-    document.addEventListener('click', (event) => {
-      const target = event.target;
-      if (!(target instanceof HTMLElement)) return;
+    window.bluevexOpenCookiePreferences = openPreferences;
 
-      if (target.closest('[data-open-cookie-preferences]')) {
-        event.preventDefault();
-        openPreferences();
-        return;
-      }
+    if (!window[BOUND_KEY]) {
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) return;
 
-      const actionElement = target.closest('[data-cookie-action]');
-      if (!(actionElement instanceof HTMLElement)) return;
+        if (target.closest('[data-open-cookie-preferences]')) {
+          event.preventDefault();
+          openPreferences();
+          return;
+        }
 
-      const action = actionElement.dataset.cookieAction;
+        const actionElement = target.closest('[data-cookie-action]');
+        if (!(actionElement instanceof HTMLElement)) return;
 
-      if (action === 'accept-all') {
-        const consent = writeConsent(true, 'banner_accept_all');
-        applyConsent(consent);
-        hideBanner();
-        closePreferences();
-      }
+        const action = actionElement.dataset.cookieAction;
+        const elements = getElements();
+        if (!elements) return;
 
-      if (action === 'reject-analytics') {
-        const consent = writeConsent(false, 'banner_reject_analytics');
-        applyConsent(consent);
-        hideBanner();
-        closePreferences();
-      }
+        if (action === 'accept-all') {
+          const consent = writeConsent(true, 'banner_accept_all');
+          applyConsent(consent);
+          hideBanner();
+          closePreferences();
+        }
 
-      if (action === 'open-preferences') {
-        openPreferences();
-      }
+        if (action === 'reject-analytics') {
+          const consent = writeConsent(false, 'banner_reject_analytics');
+          applyConsent(consent);
+          hideBanner();
+          closePreferences();
+        }
 
-      if (action === 'close-preferences') {
-        closePreferences();
-      }
+        if (action === 'open-preferences') {
+          openPreferences();
+        }
 
-      if (action === 'save-preferences') {
-        const consent = writeConsent(Boolean(analyticsToggle.checked), 'preferences_save');
-        applyConsent(consent);
-        hideBanner();
-        closePreferences();
-      }
-    });
+        if (action === 'close-preferences') {
+          closePreferences();
+        }
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && !preferences.hidden) {
-        closePreferences();
-      }
-    });
+        if (action === 'save-preferences') {
+          const consent = writeConsent(Boolean(elements.analyticsToggle.checked), 'preferences_save');
+          applyConsent(consent);
+          hideBanner();
+          closePreferences();
+        }
+      });
+
+      document.addEventListener('keydown', (event) => {
+        const elements = getElements();
+        if (!elements) return;
+
+        if (event.key === 'Escape' && !elements.preferences.hidden) {
+          closePreferences();
+        }
+      });
+
+      document.addEventListener('astro:page-load', bootstrap);
+      window[BOUND_KEY] = true;
+    }
 
     bootstrap();
   })();

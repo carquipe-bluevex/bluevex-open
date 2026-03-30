@@ -37,7 +37,7 @@ const classes = [
 ].filter(Boolean).join(' ');
 ---
 
-<form class={classes} action={action} method="get">
+<form class={classes} action={action} method="get" data-email-cta>
   <input
     class="email-cta__input"
     type="email"
@@ -52,6 +52,41 @@ const classes = [
     {buttonLabel}
   </button>
 </form>
+
+<script is:inline>
+  (() => {
+    const BOUND_KEY = '__bluevexEmailCtaBound';
+    const PREFILL_KEY = 'bluevex_prefill_email';
+
+    if (window[BOUND_KEY]) return;
+
+    document.addEventListener('submit', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLFormElement)) return;
+      if (!target.matches('[data-email-cta]')) return;
+
+      const emailInput = target.querySelector('input[type="email"]');
+      if (!(emailInput instanceof HTMLInputElement)) return;
+
+      if (!emailInput.checkValidity()) {
+        emailInput.reportValidity();
+        return;
+      }
+
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      event.preventDefault();
+
+      const actionUrl = new URL(target.action || '/contacto', window.location.origin);
+      actionUrl.searchParams.set('email', email);
+      window.sessionStorage.setItem(PREFILL_KEY, email);
+      window.location.assign(`${actionUrl.pathname}${actionUrl.search}${actionUrl.hash}`);
+    });
+
+    window[BOUND_KEY] = true;
+  })();
+</script>
 
 <style>
   .email-cta {

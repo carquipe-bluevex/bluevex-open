@@ -43,7 +43,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
       <link rel="dns-prefetch" href="//challenges.cloudflare.com" />
       <link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin="anonymous" />
       <link rel="preload" href="https://challenges.cloudflare.com/turnstile/v0/api.js" as="script" crossorigin="anonymous" />
-      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async></script>
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
     </Fragment>
   )}
 
@@ -166,7 +166,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
         {turnstileSiteKey && (
           <div class="form-captcha">
-            <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+            <div
+              class="cf-turnstile"
+              data-sitekey={turnstileSiteKey}
+              data-action="talent_form"
+              data-callback="bluevexOnTalentTurnstileSuccess"
+              data-expired-callback="bluevexOnTalentTurnstileExpired"
+              data-error-callback="bluevexOnTalentTurnstileError"
+              data-turnstile-widget
+            ></div>
+            <p class="form-status" data-form-status aria-live="polite"></p>
           </div>
         )}
 
@@ -189,7 +198,17 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 <script>
   import { initAsyncForm } from '../features/forms/client/form-submit';
 
-  initAsyncForm('.talent-form', '/talento?sent=1');
+  initAsyncForm('.talent-form', '/talento?sent=1', {
+    turnstile: {
+      widgetSelector: '[data-turnstile-widget]',
+      statusSelector: '[data-form-status]',
+      callbackNames: {
+        success: 'bluevexOnTalentTurnstileSuccess',
+        expired: 'bluevexOnTalentTurnstileExpired',
+        error: 'bluevexOnTalentTurnstileError',
+      },
+    },
+  });
 </script>
 
 <style>
@@ -252,7 +271,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
   .form-check input[type="checkbox"] { margin-top:2px; flex-shrink:0; width:16px; height:16px; accent-color:var(--color-cyan); cursor:pointer; }
   .form-link { color:var(--color-cyan); text-decoration:none; }
   .form-link:hover { text-decoration:underline; }
-  .form-captcha { margin-top:var(--space-2); }
+  .form-captcha { margin-top:var(--space-2); min-height:92px; }
+  .form-status {
+    margin-top: var(--space-2);
+    font-size: var(--text-body-s);
+    line-height: 1.5;
+    color: var(--color-gray-600);
+    min-height: 22px;
+  }
+  .form-status[data-state='ok'] { color: var(--color-success); }
+  .form-status[data-state='error'] { color: var(--color-error); }
   .hidden { display:none; }
 
   @media (max-width:768px) { .offer-grid { grid-template-columns:1fr; } .form-row { grid-template-columns:1fr; } }

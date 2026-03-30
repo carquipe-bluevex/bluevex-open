@@ -34,6 +34,12 @@ npm install
 cp .env.template .env.local
 ```
 
+Para local con Turnstile de prueba, puedes usar:
+
+```bash
+cp .env.local.example .env.local
+```
+
 3. Rellena los valores en `.env.local`.
 
 ## Variables de entorno
@@ -44,9 +50,12 @@ Definidas en `src/env.d.ts`:
 - `RESEND_FROM`
 - `TURNSTILE_SECRET_KEY`
 - `PUBLIC_TURNSTILE_SITE_KEY`
+- `TURNSTILE_ALLOWED_HOSTNAMES`
 - `ALLOWED_FORM_ORIGINS`
 
 Referencia de ejemplo en `.env.template`.
+
+Para desarrollo local con Turnstile, hay un ejemplo listo en `.env.local.example` con claves de test oficiales de Cloudflare.
 
 ## Scripts
 

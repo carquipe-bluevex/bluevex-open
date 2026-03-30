@@ -3,7 +3,32 @@ const TURNSTILE_VERIFY_URL =
 
 type TurnstileVerificationResponse = {
   success: boolean;
+  hostname?: string;
+  action?: string;
   "error-codes"?: string[];
+};
+
+const getAllowedHostnames = () => {
+  const raw = import.meta.env.TURNSTILE_ALLOWED_HOSTNAMES;
+  if (!raw) return [];
+
+  return raw
+    .split(",")
+    .map((entry: string) => entry.trim().toLowerCase())
+    .filter(Boolean);
+};
+
+const isHostnameAllowed = (hostname?: string) => {
+  const allowed = getAllowedHostnames();
+  if (allowed.length === 0) {
+    return true;
+  }
+
+  if (!hostname) {
+    return false;
+  }
+
+  return allowed.includes(hostname.toLowerCase());
 };
 
 export const isTurnstileEnabled = () => {
@@ -13,7 +38,12 @@ export const isTurnstileEnabled = () => {
 export const verifyTurnstileToken = async (
   token: string,
   remoteIp: string,
+  expectedAction?: string,
 ): Promise<boolean> => {
+  if (import.meta.env.DEV) {
+    return true;
+  }
+
   const secret = import.meta.env.TURNSTILE_SECRET_KEY;
 
   if (!secret) {
@@ -44,7 +74,19 @@ export const verifyTurnstileToken = async (
     }
 
     const data = (await response.json()) as TurnstileVerificationResponse;
-    return data.success;
+    if (!data.success) {
+      return false;
+    }
+
+    if (!isHostnameAllowed(data.hostname)) {
+      return false;
+    }
+
+    if (expectedAction && data.action !== expectedAction) {
+      return false;
+    }
+
+    return true;
   } catch {
     return false;
   }
