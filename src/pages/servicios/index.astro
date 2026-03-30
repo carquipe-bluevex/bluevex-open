@@ -1,0 +1,354 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import EmailCta from '../../components/ui/EmailCta.astro';
+import Card from '../../components/ui/Card.astro';
+import Section from '../../components/layout/Section.astro';
+import Icon from '../../components/shared/Icon.astro';
+import Timeline from '../../components/ui/Timeline.astro';
+---
+
+<BaseLayout
+  title="Servicios — BlueVex"
+  description="Soporte tecnológico, proyectos de ingeniería, CTO as a Service y licenciamiento. Responsabilidad tecnológica integral para tu empresa."
+  currentPath="/servicios"
+>
+
+  <!-- HERO -->
+  <section class="page-hero bg-white">
+    <div class="container">
+      <p class="overline">Lo que hacemos</p>
+      <h1 class="display page-hero__title">Cada hora que tu equipo pierde con<br />un aspecto tecnológico es una hora<br />que no está en tu negocio.</h1>
+      <p class="body-l page-hero__sub">Recupera ese tiempo. Nosotros nos<br />encargamos del resto.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES BENTO GRID -->
+  <Section bg="white" overline="Lo que hacemos" heading="Soluciones integrales" size="lg">
+    <div class="services-bento">
+
+      <div class="service-tile service-tile--1" id="soporte">
+        <div class="tile-bg" style="--tile-color: var(--color-cyan);"></div>
+        <div class="tile-content">
+          <span class="tile-number">01</span>
+          <h3>Soporte Tecnológico</h3>
+          <p>Operación continua de tus sistemas con SLAs medibles y responsabilidad clara.</p>
+          <Button href="/servicios/soporte" variant="secondary" size="sm">Explorar</Button>
+        </div>
+      </div>
+
+      <div class="service-tile service-tile--2" id="proyectos">
+        <div class="tile-bg" style="--tile-color: #3BC9DE;"></div>
+        <div class="tile-content">
+          <span class="tile-number">02</span>
+          <h3>Proyectos</h3>
+          <p>Ingeniería con contexto estratégico real. No cerramos proyectos: resolvemos problemas.</p>
+          <Button href="/servicios/proyectos" variant="secondary" size="sm">Explorar</Button>
+        </div>
+      </div>
+
+      <div class="service-tile service-tile--3" id="cto">
+        <div class="tile-bg" style="--tile-color: #2FA8D8;"></div>
+        <div class="tile-content">
+          <span class="tile-number">03</span>
+          <h3>CTO as a Service</h3>
+          <p>Liderazgo tecnológico estratégico sin el coste de un CTO a tiempo completo.</p>
+          <Button href="/servicios/cto-as-a-service" variant="secondary" size="sm">Explorar</Button>
+        </div>
+      </div>
+
+      <div class="service-tile service-tile--4" id="licenciamiento">
+        <div class="tile-bg" style="--tile-color: #1F88B8;"></div>
+        <div class="tile-content">
+          <span class="tile-number">04</span>
+          <h3>Licenciamiento</h3>
+          <p>Auditamos y optimizamos licencias para que pagues solo lo necesario.</p>
+          <Button href="/servicios/licenciamiento" variant="secondary" size="sm">Explorar</Button>
+        </div>
+      </div>
+
+    </div>
+  </Section>
+
+  <!-- PROCESS -->\
+  <Section
+    bg="white"
+    overline="Cómo trabajamos"
+    heading="Un proceso claro, sin vueltas"
+    subheading="Cuatro pasos simples para empezar con seguridad y mantener el control."
+  >
+    <Timeline
+      steps={[
+        {
+          title: 'Diagnóstico gratuito',
+          description:
+            'Una sesión. Sin PowerPoints de venta. Escuchamos, analizamos y te decimos la verdad sobre lo que está funcionando y lo que no en tu empresa.',
+        },
+        {
+          title: 'Propuesta a medida',
+          description:
+            'Una propuesta con alcance cerrado, precio fijo y plazos reales. Puedes contratar un servicio o varios. Sin letra pequeña. Sin costes ocultos.',
+        },
+        {
+          title: 'Empezamos en 48 horas',
+          description:
+            'Desde el primer día sabes qué pasa, quién te atiende y qué esperar de nosotros. Sin curva de aprendizaje. Sin sorpresas.',
+        },
+        {
+          title: 'Relación continua',
+          description:
+            'Cada 90 días revisamos contigo si lo que tienes sigue siendo lo que necesitas. Proponemos cambios antes de que tú los pidas.',
+        },
+      ]}
+    />
+    <div class="timeline-cta">
+      <Button href="/contacto" variant="primary" size="lg">Agendar Diagnóstico</Button>
+    </div>
+  </Section>
+
+  <!-- CTA -->
+  <Section bg="off-white" size="md" centered>
+    <p class="overline">¿No sabes por dónde empezar?</p>
+    <h2 style="color:var(--color-navy); margin-top: var(--space-3);">Empezamos con una conversación.</h2>
+    <p class="body-l mt-4" style="color:var(--color-gray-600); max-width:480px; margin-inline:auto;">Analizamos tu situación, identificamos los riesgos reales y te recomendamos el servicio de entrada más adecuado.</p>
+    <div class="mt-8">
+      <EmailCta size="lg" />
+    </div>
+  </Section>
+
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-block: var(--space-20);
+  }
+
+  .page-hero__title { color: var(--color-navy); margin-top: var(--space-4); }
+  .page-hero__sub   { color: var(--color-gray-600); max-width: 600px; margin-top: var(--space-5); }
+
+  /* GRID ESCALONADO/DIAGONAL */
+  .services-bento {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-10) var(--space-12);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .service-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    animation: tileReveal 0.6s ease-out both;
+  }
+
+  /* Staggered/Diagonal positioning */
+  .service-tile--1 {
+    grid-column: 1;
+    transform: translateX(0) translateY(0);
+    animation-delay: 0.1s;
+  }
+
+  .service-tile--2 {
+    grid-column: 2;
+    transform: translateX(40px) translateY(80px);
+    animation-delay: 0.2s;
+  }
+
+  .service-tile--3 {
+    grid-column: 1;
+    transform: translateX(-40px) translateY(160px);
+    animation-delay: 0.3s;
+  }
+
+  .service-tile--4 {
+    grid-column: 2;
+    transform: translateX(40px) translateY(240px);
+    animation-delay: 0.4s;
+  }
+
+  /* Tile background and accent */
+  .tile-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--tile-color);
+    opacity: 0.08;
+    z-index: 0;
+  }
+
+  .service-tile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--tile-color), transparent);
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  /* Tile content */
+  .tile-content {
+    position: relative;
+    z-index: 2;
+    padding: var(--space-8);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.98));
+  }
+
+  .tile-number {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: var(--weight-bold);
+    color: var(--tile-color);
+    line-height: 1;
+    margin-bottom: var(--space-6);
+    opacity: 0.3;
+  }
+
+  .service-tile h3 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: var(--weight-bold);
+    color: var(--color-navy);
+    margin: 0 0 var(--space-3) 0;
+    line-height: 1.3;
+  }
+
+  .service-tile p {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    color: var(--color-gray-600);
+    margin: 0 0 var(--space-6) 0;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  /* Hover state */
+  .service-tile:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .service-tile:hover .tile-bg {
+    opacity: 0.12;
+  }
+
+  .service-tile:hover .tile-number {
+    opacity: 0.5;
+  }
+
+  /* Animation */
+  @keyframes tileReveal {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .timeline-cta {
+    margin-top: var(--space-10);
+    display: flex;
+    justify-content: center;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .services-bento {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-8) var(--space-10);
+    }
+
+    .service-tile {
+      min-height: 300px;
+    }
+
+    .service-tile--1 {
+      transform: translateX(0) translateY(0);
+    }
+
+    .service-tile--2 {
+      transform: translateX(20px) translateY(60px);
+    }
+
+    .service-tile--3 {
+      transform: translateX(-20px) translateY(120px);
+    }
+
+    .service-tile--4 {
+      transform: translateX(20px) translateY(180px);
+    }
+
+    .tile-content {
+      padding: var(--space-6);
+    }
+
+    .tile-number {
+      font-size: clamp(1.75rem, 4vw, 2rem);
+      margin-bottom: var(--space-4);
+    }
+
+    .service-tile h3 {
+      font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+      margin-bottom: var(--space-2);
+    }
+
+    .service-tile p {
+      font-size: 0.875rem;
+      margin-bottom: var(--space-4);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-bento {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .service-tile,
+    .service-tile--1,
+    .service-tile--2,
+    .service-tile--3,
+    .service-tile--4 {
+      min-height: 280px;
+      transform: none !important;
+      grid-column: auto !important;
+    }
+
+    .service-tile:hover {
+      transform: translateY(-4px);
+    }
+
+    .tile-content {
+      padding: var(--space-5);
+    }
+
+    .tile-number {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-3);
+    }
+
+    .service-tile h3 {
+      font-size: 1.25rem;
+      margin-bottom: var(--space-2);
+    }
+
+    .service-tile p {
+      font-size: 0.875rem;
+      margin-bottom: var(--space-4);
+    }
+  }
+</style>

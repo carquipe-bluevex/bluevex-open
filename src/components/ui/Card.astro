@@ -1,0 +1,97 @@
+---
+/**
+ * Card — BlueVex UI Component
+ *
+ * Variants: default | navy | ghost
+ * Optional: accent left-border (callout style from brand manual)
+ */
+
+interface Props {
+  variant?: 'default' | 'navy' | 'ghost';
+  accent?: boolean;       /* 3px cyan left border callout style */
+  href?: string;          /* Makes card clickable */
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  accent = false,
+  href,
+  class: className = '',
+} = Astro.props;
+
+const Tag = href ? 'a' : 'div';
+const classes = [
+  'card',
+  `card--${variant}`,
+  accent && 'card--accent',
+  href && 'card--link',
+  className,
+].filter(Boolean).join(' ');
+---
+
+<Tag class={classes} href={href}>
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+  }
+
+  /* Default — white with border */
+  .card--default {
+    background-color: var(--color-white);
+    border: var(--border-thin);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Navy — dark card */
+  .card--navy {
+    background-color: var(--color-navy);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-white);
+  }
+  .card--navy h1,
+  .card--navy h2,
+  .card--navy h3,
+  .card--navy h4,
+  .card--navy p {
+    color: var(--color-white);
+  }
+  .card--navy .caption {
+    color: var(--color-gray-400);
+  }
+
+  /* Ghost — off-white, no border */
+  .card--ghost {
+    background-color: var(--color-off-white);
+    border: none;
+  }
+
+  /* Accent (callout) — cyan left border + light blue bg */
+  .card--accent {
+    border-left: 3px solid var(--color-cyan);
+    background-color: var(--color-gray-100);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  /* Link card — hover effect */
+  .card--link {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+  }
+  .card--link:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .card--default.card--link:hover {
+    border-color: var(--color-cyan);
+  }
+</style>

@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/layout/Section.astro';
+
+const lastUpdated = '26 de marzo de 2026';
+---
+
+<BaseLayout
+  title="Política de Privacidad — BlueVex"
+  description="Política de privacidad de BlueVex. Información sobre el tratamiento de datos personales conforme al RGPD y la LOPDGDD."
+  currentPath="/privacidad"
+>
+  <section class="legal-hero bg-white">
+    <div class="container">
+      <p class="overline mt-4">Legal</p>
+      <h1 class="h2 legal-hero__title">Política de Privacidad</h1>
+      <p class="caption mt-2" style="color:var(--color-gray-500)">Última actualización: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <Section bg="white" size="lg">
+    <div class="legal-content">
+
+      <h2>1. Responsable del tratamiento</h2>
+      <p>El Responsable del tratamiento de los datos personales recogidos a través de este sitio web es:</p>
+      <ul>
+        <li><strong>Razón social:</strong> BlueVex Technologies S.L. (en proceso de constitución)</li>
+        <li><strong>Nombre comercial:</strong> BlueVex</li>
+        <li><strong>Domicilio social:</strong> Carrer dels Maulets, 5, 46183, L'Eliana, Valencia</li>
+        <li><strong>Email de contacto:</strong> <a href="mailto:dpo@bluevex.tech">dpo@bluevex.tech</a></li>
+      </ul>
+
+      <h2>2. Datos que recopilamos</h2>
+      <p>BlueVex recopila los siguientes tipos de datos personales:</p>
+      <ul>
+        <li><strong>Datos de formularios:</strong> nombre, empresa, email, teléfono y el mensaje que nos envías en el formulario de contacto.</li>
+        <li><strong>Datos de candidaturas:</strong> nombre, email, perfil/rol, ubicación, enlace a LinkedIn o portfolio, mensajes adicionales y el archivo de CV en PDF que adjuntes.</li>
+        <li><strong>Datos de navegación:</strong> dirección IP, tipo de navegador, páginas visitadas y tiempo de permanencia, a través de cookies técnicas y, si aceptas, cookies analíticas (ver política de cookies).</li>
+      </ul>
+
+      <h2>3. Finalidad del tratamiento</h2>
+      <p>Los datos personales que nos facilites serán tratados para las siguientes finalidades:</p>
+      <ul>
+        <li>Gestionar y responder a las consultas recibidas a través de los formularios de contacto.</li>
+        <li>Gestionar candidaturas y procesos de selección para posiciones o colaboraciones profesionales.</li>
+        <li>Analizar el uso del sitio web para mejorar su funcionamiento y contenidos, cuando hayas dado tu consentimiento para cookies analíticas.</li>
+        <li>Cumplir con las obligaciones legales aplicables.</li>
+      </ul>
+
+      <h2>4. Base legal del tratamiento</h2>
+      <p>Las bases legales que fundamentan el tratamiento de tus datos son:</p>
+      <ul>
+        <li><strong>Consentimiento:</strong> para el envío de datos a través de los formularios y el uso de cookies analíticas no esenciales.</li>
+        <li><strong>Aplicación de medidas precontractuales:</strong> cuando nos solicitas información sobre nuestros servicios.</li>
+        <li><strong>Interés legítimo:</strong> para la seguridad del sitio web y la prevención de uso indebido.</li>
+        <li><strong>Obligación legal:</strong> en los casos en que la legislación aplicable lo exija.</li>
+      </ul>
+
+      <h2>5. Conservación de datos</h2>
+      <p>Los datos se conservarán durante el tiempo necesario para cumplir con la finalidad para la que fueron recogidos y, en su caso, para atender responsabilidades legales. Los datos de contacto y candidaturas se conservarán mientras exista una relación activa o hasta que solicites su supresión.</p>
+
+      <h2>6. Destinatarios</h2>
+      <p>BlueVex no cederá tus datos personales a terceros salvo en los siguientes casos:</p>
+      <ul>
+        <li>Cuando sea necesario para la prestación del servicio (hosting y gestión de formularios mediante Netlify).</li>
+        <li>Cuando hayas aceptado cookies analíticas (Google Analytics).</li>
+        <li>Cuando exista una obligación legal de comunicarlos a las autoridades competentes.</li>
+      </ul>
+
+      <h2>7. Transferencias internacionales</h2>
+      <p>Algunos proveedores utilizados pueden estar ubicados fuera del Espacio Económico Europeo (por ejemplo, Netlify o Google). En estos casos, nos aseguramos de que existan garantías adecuadas conforme al RGPD, como las Cláusulas Contractuales Tipo de la Comisión Europea.</p>
+
+      <h2>8. Tus derechos</h2>
+      <p>En virtud del Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), tienes los siguientes derechos:</p>
+      <ul>
+        <li><strong>Acceso:</strong> conocer qué datos tratamos sobre ti.</li>
+        <li><strong>Rectificación:</strong> corregir datos inexactos o incompletos.</li>
+        <li><strong>Supresión:</strong> solicitar la eliminación de tus datos.</li>
+        <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos.</li>
+        <li><strong>Limitación:</strong> solicitar la restricción del tratamiento.</li>
+        <li><strong>Portabilidad:</strong> recibir tus datos en formato estructurado.</li>
+        <li><strong>Retirar el consentimiento:</strong> en cualquier momento, cuando el tratamiento se base en el consentimiento.</li>
+      </ul>
+      <p>Para ejercer estos derechos, puedes contactarnos en <a href="mailto:dpo@bluevex.tech">dpo@bluevex.tech</a>. También tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+
+      <h2>9. Menores de edad</h2>
+      <p>BlueVex no dirige sus servicios a menores de 14 años. Si detectamos que hemos recogido datos de un menor sin consentimiento paterno, procederemos a su eliminación inmediata.</p>
+
+      <h2>10. Cambios en esta política</h2>
+      <p>BlueVex se reserva el derecho de modificar esta política de privacidad para adaptarla a cambios legales o a modificaciones en nuestros servicios. Te recomendamos revisar esta página periódicamente.</p>
+
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .legal-hero { padding-block:var(--space-12); }
+  .legal-hero__title { color:var(--color-navy); margin-top:var(--space-3); }
+
+  .legal-content { max-width:740px; }
+  .legal-content h2 { font-size:var(--text-h3); color:var(--color-navy); margin-top:var(--space-10); margin-bottom:var(--space-3); }
+  .legal-content h2:first-child { margin-top:0; }
+  .legal-content p { color:var(--color-gray-600); margin-bottom:var(--space-4); line-height:1.7; }
+  .legal-content ul { margin-left:var(--space-6); margin-bottom:var(--space-4); display:flex; flex-direction:column; gap:var(--space-2); }
+  .legal-content li { color:var(--color-gray-600); line-height:1.6; }
+  .legal-content a { color:var(--color-cyan); text-decoration:none; }
+  .legal-content a:hover { text-decoration:underline; }
+</style>

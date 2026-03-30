@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/layout/Section.astro';
+
+const lastUpdated = '26 de marzo de 2026';
+---
+
+<BaseLayout
+  title="Aviso Legal — BlueVex"
+  description="Información legal sobre BlueVex: datos del titular, condiciones de uso del sitio web y responsabilidades."
+  currentPath="/aviso-legal"
+>
+  <section class="legal-hero bg-white">
+    <div class="container">
+      <p class="overline mt-4">Legal</p>
+      <h1 class="h2 legal-hero__title">Aviso Legal</h1>
+      <p class="caption mt-2" style="color:var(--color-gray-500)">Última actualización: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <Section bg="white" size="lg">
+    <div class="legal-content">
+
+      <h2>1. Datos del titular</h2>
+      <p>En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se informa que el presente sitio web es titularidad de:</p>
+      <ul>
+        <li><strong>Razón social:</strong> BlueVex Technologies S.L. (en proceso de constitución)</li>
+        <li><strong>Nombre comercial:</strong> BlueVex</li>
+        <li><strong>Domicilio social:</strong> Carrer dels Maulets, 5, 46183, L'Eliana, Valencia</li>
+        <li><strong>Registro Mercantil:</strong> Valencia, Hoja 179378</li>
+        <li><strong>Email de contacto:</strong> <a href="mailto:dpo@bluevex.tech">dpo@bluevex.tech</a></li>
+        <li><strong>Sitio web:</strong> <a href="https://www.bluevex.tech">www.bluevex.tech</a></li>
+      </ul>
+
+      <h2>2. Objeto y ámbito de aplicación</h2>
+      <p>El presente Aviso Legal regula el acceso y uso del sitio web <strong>www.bluevex.tech</strong> (en adelante, "el Sitio"), cuya titularidad corresponde a BlueVex. El acceso al Sitio implica la aceptación plena y sin reservas del presente Aviso Legal.</p>
+
+      <h2>3. Condiciones de uso</h2>
+      <p>El usuario se compromete a hacer un uso adecuado de los contenidos y servicios que BlueVex ofrece a través del Sitio, conforme a la ley, a las buenas costumbres y al orden público. Queda expresamente prohibido:</p>
+      <ul>
+        <li>Utilizar el Sitio con fines ilícitos o contrarios a las presentes condiciones.</li>
+        <li>Reproducir, distribuir o modificar los contenidos del Sitio sin autorización expresa de BlueVex.</li>
+        <li>Introducir o difundir contenidos o información falsa, ambigua o inexacta.</li>
+        <li>Utilizar mecanismos automatizados para acceder, rastrear o recopilar información del Sitio.</li>
+      </ul>
+
+      <h2>4. Propiedad intelectual e industrial</h2>
+      <p>Todos los contenidos del Sitio, incluyendo textos, imágenes, logotipos, diseños, código fuente y demás elementos, son propiedad de BlueVex o de terceros que han autorizado su uso, y están protegidos por la legislación española e internacional de propiedad intelectual e industrial.</p>
+      <p>Queda prohibida su reproducción, distribución, comunicación pública, transformación o cualquier otra forma de explotación sin la autorización previa y por escrito de BlueVex.</p>
+
+      <h2>5. Exclusión de responsabilidad</h2>
+      <p>BlueVex no se responsabiliza de los daños y perjuicios que pudieran derivarse de:</p>
+      <ul>
+        <li>Errores u omisiones en los contenidos del Sitio.</li>
+        <li>La falta de disponibilidad o continuidad del Sitio.</li>
+        <li>El uso que el usuario pueda hacer de los contenidos del Sitio.</li>
+        <li>La presencia de virus o programas maliciosos en los contenidos accesibles desde el Sitio.</li>
+      </ul>
+
+      <h2>6. Hipervínculos</h2>
+      <p>El Sitio puede contener enlaces a sitios web de terceros. BlueVex no controla ni se responsabiliza de los contenidos, productos o servicios disponibles en dichos sitios, ni de cualquier otro material que se encuentre en ellos.</p>
+
+      <h2>7. Legislación aplicable y jurisdicción</h2>
+      <p>Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia que pudiera surgir en relación con el acceso o uso del Sitio, las partes se someten a los Juzgados y Tribunales de España.</p>
+
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .legal-hero { padding-block:var(--space-12); }
+  .legal-hero__title { color:var(--color-navy); margin-top:var(--space-3); }
+
+  .legal-content { max-width:740px; }
+  .legal-content h2 { font-size:var(--text-h3); color:var(--color-navy); margin-top:var(--space-10); margin-bottom:var(--space-3); }
+  .legal-content h2:first-child { margin-top:0; }
+  .legal-content p { color:var(--color-gray-600); margin-bottom:var(--space-4); line-height:1.7; }
+  .legal-content ul { margin-left:var(--space-6); margin-bottom:var(--space-4); display:flex; flex-direction:column; gap:var(--space-2); }
+  .legal-content li { color:var(--color-gray-600); line-height:1.6; }
+  .legal-content a { color:var(--color-cyan); text-decoration:none; }
+  .legal-content a:hover { text-decoration:underline; }
+</style>

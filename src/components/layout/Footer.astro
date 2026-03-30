@@ -1,0 +1,240 @@
+---
+/**
+ * Footer — BlueVex Site Footer
+ * Brand manual: white logo on navy background,
+ * cyan separator line, Inter caption text.
+ */
+
+import Logo from '../shared/Logo.astro';
+import Icon from '../shared/Icon.astro';
+
+const currentYear = new Date().getFullYear();
+
+const serviceLinks = [
+  { label: 'Soporte Tecnológico', href: '/servicios/soporte' },
+  { label: 'Proyectos',           href: '/servicios/proyectos' },
+  { label: 'CTO as a Service',    href: '/servicios/cto-as-a-service' },
+  { label: 'Licenciamiento',      href: '/servicios/licenciamiento' },
+];
+
+const companyLinks = [
+  { label: 'Nosotros',  href: '/nosotros' },
+  { label: 'Talento',   href: '/talento' },
+  { label: 'Contacto',  href: '/contacto' },
+];
+
+const legalLinks = [
+  { label: 'Aviso Legal',          href: '/aviso-legal' },
+  { label: 'Política de Privacidad', href: '/privacidad' },
+  { label: 'Política de Cookies',  href: '/cookies' },
+  { label: 'Condiciones de Uso',   href: '/condiciones-de-uso' },
+];
+---
+
+<footer class="footer" aria-label="Pie de página">
+  <div class="container">
+
+    {/* Top section */}
+    <div class="footer__top">
+      <div class="footer__brand">
+        <Logo theme="dark" size="xl" />
+        <p class="footer__tagline">Tecnología que marca el rumbo.</p>
+        <a href="https://www.linkedin.com/company/bluevex-technologies/" class="footer__social" target="_blank" rel="noopener noreferrer" aria-label="BlueVex en LinkedIn">
+          <Icon name="linkedin" size={20} color="#A8AABC" />
+        </a>
+      </div>
+
+      <div class="footer__links">
+        <div class="footer__col">
+          <p class="footer__col-title overline">Servicios</p>
+          <ul role="list">
+            {serviceLinks.map(link => (
+              <li><a href={link.href} class="footer__link">{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <p class="footer__col-title overline">Empresa</p>
+          <ul role="list">
+            {companyLinks.map(link => (
+              <li><a href={link.href} class="footer__link">{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="footer__col">
+          <p class="footer__col-title overline">Contacto</p>
+          <ul role="list">
+            <li class="footer__contact-item">
+              <Icon name="envelope-simple" size={16} color="#747687" />
+              <a href="mailto:hola@bluevex.tech" class="footer__link">hola@bluevex.tech</a>
+            </li>
+            <li class="footer__contact-item">
+              <Icon name="map-pin" size={16} color="#747687" />
+              <span class="footer__contact-text">España</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {/* Cyan divider */}
+    <div class="footer__divider"></div>
+
+    {/* Bottom row */}
+    <div class="footer__bottom">
+      <p class="footer__copy caption">
+        © {currentYear} BlueVex Technologies S.L. Todos los derechos reservados.
+      </p>
+      <nav class="footer__legal" aria-label="Legal">
+        {legalLinks.map((link, i) => (
+          <>
+            <a href={link.href} class="footer__legal-link">{link.label}</a>
+            {i < legalLinks.length - 1 && <span aria-hidden="true">·</span>}
+          </>
+        ))}
+      </nav>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-8);
+  }
+
+  /* Top */
+  .footer__top {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: var(--space-16);
+    padding-bottom: var(--space-12);
+  }
+
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .footer__tagline {
+    font-size: var(--text-body-s);
+    color: var(--color-gray-400);
+    font-style: italic;
+  }
+
+  .footer__social {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    transition: opacity var(--transition-fast);
+    width: fit-content;
+  }
+  .footer__social:hover { opacity: 0.7; }
+
+  /* Links grid */
+  .footer__links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+  }
+
+  .footer__col-title {
+    margin-bottom: var(--space-4);
+    /* overline class gives cyan color + uppercase */
+  }
+
+  .footer__col ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer__link {
+    font-size: var(--text-body-s);
+    color: var(--color-gray-400);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .footer__link:hover { color: var(--color-white); }
+
+  .footer__contact-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .footer__contact-text {
+    font-size: var(--text-body-s);
+    color: var(--color-gray-400);
+  }
+
+  /* Divider */
+  .footer__divider {
+    height: 1px;
+    background-color: var(--color-cyan);
+    opacity: 0.3;
+    margin-block: var(--space-8);
+  }
+
+  /* Bottom */
+  .footer__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .footer__copy {
+    color: var(--color-gray-600);
+  }
+
+  .footer__legal {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .footer__legal-link {
+    font-size: var(--text-caption);
+    color: var(--color-gray-600);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  .footer__legal-link:hover { color: var(--color-gray-400); }
+
+  .footer__legal span {
+    color: var(--color-gray-600);
+    font-size: var(--text-caption);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .footer__top {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+
+    .footer__links {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer__links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

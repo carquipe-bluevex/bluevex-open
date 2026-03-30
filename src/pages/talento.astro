@@ -1,0 +1,259 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import Modal from '../components/ui/Modal.astro';
+import Section from '../components/layout/Section.astro';
+import Icon from '../components/shared/Icon.astro';
+
+const principles = [
+  {
+    icon: 'rocket',
+    title: 'Proactividad',
+    desc: 'No esperamos instrucciones. Buscamos personas que identifiquen problemas, propongan soluciones y las ejecuten sin esperar aprobación en cada paso. La iniciativa es un requisito, no una bonus.',
+  },
+  {
+    icon: 'chat-dots',
+    title: 'Comunicación en lenguaje de negocio',
+    desc: 'La capacidad técnica es necesaria pero no suficiente. Aquí se trabaja directamente con clientes. Hay que saber explicar lo complejo de forma simple.',
+  },
+  {
+    icon: 'star',
+    title: 'Excelencia',
+    desc: 'No es sobre hacer las cosas rápido. Es sobre hacerlas bien. Cada detalle cuenta. Se espera que cada entrega refleje un estándar de calidad máximo, sin excepciones ni atajos.',
+  },
+  {
+    icon: 'book',
+    title: 'Formación continua',
+    desc: 'La tecnología evoluciona constantemente y con ella el mercado. Esperamos que cada persona dedique tiempo a mantenerse actualizada, aprender nuevas herramientas y evolucionar su criterio técnico.',
+  },
+];
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
+
+---
+
+<BaseLayout
+  title="Talento — BlueVex"
+  description="Únete a BlueVex. Buscamos perfiles técnicos senior con criterio, capacidad de comunicación y responsabilidad frente al cliente. Trabaja en proyectos reales."
+  currentPath="/talento"
+>
+  {turnstileSiteKey && (
+    <Fragment slot="head">
+      <link rel="dns-prefetch" href="//challenges.cloudflare.com" />
+      <link rel="preconnect" href="https://challenges.cloudflare.com" crossorigin="anonymous" />
+      <link rel="preload" href="https://challenges.cloudflare.com/turnstile/v0/api.js" as="script" crossorigin="anonymous" />
+      <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async></script>
+    </Fragment>
+  )}
+
+  <!-- HERO -->
+  <section class="page-hero bg-white">
+    <div class="container">
+      <p class="overline mt-4">Talento</p>
+      <h1 class="display page-hero__title">Trabajamos con los mejores.<br />No con los más disponibles.</h1>
+      <p class="body-l page-hero__sub">No buscamos recursos. Buscamos personas con criterio, que entiendan el negocio y sean capaces de asumir responsabilidad real frente al cliente.</p>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <Section bg="navy" overline="Cómo trabajamos" heading="Lo que buscamos en las personas con las que colaboramos" size="md">
+    <div class="grid-2" style="gap:var(--space-4)">
+      {principles.map(p => (
+        <div class="principle-card">
+          <div class="principle-card__icon">
+            <Icon name={p.icon} size={24} color="var(--color-cyan)" />
+          </div>
+          <div>
+            <h4>{p.title}</h4>
+            <p class="body-s mt-2" style="color:var(--color-gray-600)">{p.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- WHAT WE OFFER -->
+  <Section bg="white" overline="Qué ofrecemos" heading="No es para todo el mundo" size="md">
+    <div class="offer-grid">
+      <div class="offer-text">
+        <p class="body-l" style="color:var(--color-gray-600)">Somos una empresa pequeña e intencionadamente selectiva. No ofrecemos empleo masivo ni crecimiento rápido de plantilla. Lo que sí ofrecemos es trabajo técnico interesante, con contexto real de negocio y sin las fricciones habituales de los entornos corporativos grandes.</p>
+        <ul class="offer-list mt-6">
+          {[
+            'Proyectos con contexto estratégico real, no solo técnico',
+            'Clientes que saben lo que quieren y respetan el criterio técnico',
+            'Autonomía para tomar decisiones dentro de tu área',
+            'Comunicación directa, sin capas de gestión innecesarias',
+            'Un equipo senior que te mentoriza y acelera tu crecimiento técnico',
+            'Posibilidad de evolucionar hacia roles de mayor responsabilidad',
+          ].map(item => (
+            <li class="offer-list__item">
+              <Icon name="check" size={16} color="var(--color-success)" />
+              <span class="body-s">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <Card variant="navy">
+        <p class="overline" style="color:var(--color-cyan)">Lo que no ofrecemos</p>
+        <ul class="nolist mt-4">
+          {[
+            'Procesos de selección largos ni burocracia',
+            'Entornos donde se valora la apariencia sobre los resultados',
+            'Reuniones sin propósito ni documentación innecesaria',
+          ].map(item => (
+            <li class="nolist__item">
+              <span class="nolist__dash">—</span>
+              <span class="body-s" style="color:var(--color-gray-300)">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </Card>
+    </div>
+  </Section>
+
+  <!-- TALENT FORM -->
+  <Section bg="off-white" overline="Talento" heading="Cuéntanos tu perfil" size="md" id="formulario-talento">
+    <div class="talent-form-wrap">
+      <p class="body-l" style="color:var(--color-gray-600)">Buscamos perfiles senior con criterio. Si crees que encajas, envíanos tu información y revisaremos tu candidatura.</p>
+      <form class="talent-form mt-8" name="talento" method="POST" action="/api/talent" enctype="multipart/form-data">
+        <input type="hidden" name="form-name" value="talento" />
+        <p class="hidden"><label>No rellenar: <input name="bot-field" /></label></p>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="nombre">Nombre *</label>
+            <input class="form-input" type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">Email *</label>
+            <input class="form-input" type="email" id="email" name="email" placeholder="tu@empresa.com" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label" for="rol">Perfil / Rol</label>
+            <input class="form-input" type="text" id="rol" name="rol" placeholder="Ej. Ingeniero/a de Sistemas" />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="ubicacion">Ubicación</label>
+            <input class="form-input" type="text" id="ubicacion" name="ubicacion" placeholder="Ciudad y país" />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="linkedin">LinkedIn o portfolio</label>
+          <input class="form-input" type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/..." />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="cv">CV (PDF)</label>
+          <input class="form-input" type="file" id="cv" name="cv" accept="application/pdf" required />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="mensaje">Cuéntanos más</label>
+          <textarea class="form-input form-textarea" id="mensaje" name="mensaje" rows="5" placeholder="Experiencia relevante, disponibilidad y por qué te interesa BlueVex"></textarea>
+        </div>
+
+        <div class="form-field">
+          <label class="form-check">
+            <input type="checkbox" name="privacidad" required />
+            <span class="body-s" style="color:var(--color-gray-600)">He leído y acepto la <a href="/privacidad" class="form-link">política de privacidad</a>.</span>
+          </label>
+        </div>
+
+        {turnstileSiteKey && (
+          <div class="form-captcha">
+            <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
+          </div>
+        )}
+
+        <Button type="submit" variant="primary" size="lg">Enviar candidatura</Button>
+      </form>
+    </div>
+  </Section>
+
+</BaseLayout>
+
+<Modal
+  id="talent-modal"
+  variant="success"
+  title="¡Tu candidatura ha llegado!"
+  description="Hemos recibido tu perfil y la estaremos revisando con atención. Te contactaremos pronto si vemos que podemos trabajar juntos."
+  openOnQuery="sent"
+  openOnValue="1"
+/>
+
+<script>
+  import { initAsyncForm } from '../features/forms/client/form-submit';
+
+  initAsyncForm('.talent-form', '/talento?sent=1');
+</script>
+
+<style>
+  .page-hero { padding-block:var(--space-16); }
+  .page-hero__title { color:var(--color-navy); margin-top:var(--space-4); }
+  .page-hero__sub   { color:var(--color-gray-600); max-width:580px; margin-top:var(--space-5); }
+
+  .principle-card { display:flex; align-items:flex-start; gap:var(--space-4); padding:var(--space-6); background:var(--color-white); border-radius:var(--radius-lg); border:var(--border-thin); }
+  .principle-card__icon { width:48px; height:48px; background:var(--color-off-white); border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+
+  :global(.bg-navy .principle-card) {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  :global(.bg-navy .principle-card h4) {
+    color: var(--color-white);
+  }
+
+  :global(.bg-navy .principle-card .body-s) {
+    color: var(--color-gray-400) !important;
+  }
+
+  :global(.bg-navy .principle-card__icon) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .offer-grid { display:grid; grid-template-columns:1fr 320px; gap:var(--space-10); align-items:start; }
+  .offer-list { display:flex; flex-direction:column; gap:var(--space-3); }
+  .offer-list__item { display:flex; align-items:flex-start; gap:var(--space-2); }
+
+  .nolist { display:flex; flex-direction:column; gap:var(--space-3); }
+  .nolist__item { display:flex; align-items:flex-start; gap:var(--space-3); }
+  .nolist__dash { color:var(--color-cyan); font-weight:var(--weight-semibold); flex-shrink:0; }
+
+  .talent-form-wrap { max-width: 720px; }
+
+  .talent-form { display:flex; flex-direction:column; gap:var(--space-5); }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4); }
+  .form-field { display:flex; flex-direction:column; gap:var(--space-2); }
+  .form-label { font-size:var(--text-label); font-weight:var(--weight-medium); color:var(--color-navy); }
+  .form-input {
+    width:100%;
+    padding:var(--space-3) var(--space-4);
+    border:1px solid var(--color-gray-400);
+    border-radius:var(--radius-md);
+    font-family:var(--font-body);
+    font-size:var(--text-body-s);
+    color:var(--color-gray-800);
+    background:var(--color-white);
+    transition:border-color var(--transition-fast), box-shadow var(--transition-fast);
+    outline:none;
+    -webkit-appearance:none;
+  }
+  .form-input:hover { border-color:var(--color-gray-500); }
+  .form-input:focus { border-color:var(--color-cyan); box-shadow:0 0 0 3px rgba(47,164,217,0.12); }
+  .form-input::placeholder { color:var(--color-gray-400); }
+  .form-textarea { resize:vertical; min-height:120px; }
+  .form-check { display:flex; align-items:flex-start; gap:var(--space-3); cursor:pointer; }
+  .form-check input[type="checkbox"] { margin-top:2px; flex-shrink:0; width:16px; height:16px; accent-color:var(--color-cyan); cursor:pointer; }
+  .form-link { color:var(--color-cyan); text-decoration:none; }
+  .form-link:hover { text-decoration:underline; }
+  .form-captcha { margin-top:var(--space-2); }
+  .hidden { display:none; }
+
+  @media (max-width:768px) { .offer-grid { grid-template-columns:1fr; } .form-row { grid-template-columns:1fr; } }
+</style>

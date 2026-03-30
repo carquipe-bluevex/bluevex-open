@@ -1,0 +1,189 @@
+/* ============================================================
+   BLUEVEX TYPOGRAPHY SYSTEM
+   Fonts: Hanken Grotesk (headings) + Inter (body/UI)
+   ============================================================ */
+
+/* Self-hosted variable fonts */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-VariableFont_opsz,wght.woff2")
+    format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter-Italic-VariableFont_opsz,wght.woff2")
+    format("woff2-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("/fonts/HankenGrotesk-VariableFont_wght.woff2")
+    format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Hanken Grotesk";
+  src: url("/fonts/HankenGrotesk-Italic-VariableFont_wght.woff2")
+    format("woff2-variations");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ============================================================
+   BASE TYPOGRAPHIC STYLES
+   ============================================================ */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: var(--weight-regular);
+  line-height: 1.7;
+  color: var(--color-gray-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  color: var(--color-navy);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h4,
+h5,
+h6 {
+  font-family: var(--font-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+  line-height: 1.4;
+}
+
+h1 {
+  font-size: var(--text-h1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: var(--text-h2);
+  font-weight: var(--weight-medium);
+}
+h3 {
+  font-size: var(--text-h3);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0;
+}
+h4 {
+  font-size: var(--text-h4);
+}
+
+/* Display sizes — use .display-xl and .display utility classes */
+.display-xl {
+  font-family: var(--font-heading);
+  font-size: var(--text-display-xl);
+  font-weight: var(--weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--color-navy);
+}
+
+.display {
+  font-family: var(--font-heading);
+  font-size: var(--text-display);
+  font-weight: var(--weight-semibold);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-navy);
+}
+
+/* Body variants */
+.body-l {
+  font-size: var(--text-body-l);
+  line-height: 1.7;
+}
+
+.body-s {
+  font-size: var(--text-body-s);
+  line-height: 1.6;
+}
+
+/* UI elements */
+.label {
+  font-size: var(--text-label);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+}
+
+.label-s {
+  font-size: var(--text-label-s);
+  font-weight: var(--weight-medium);
+  line-height: 1.4;
+}
+
+.caption {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
+  line-height: 1.5;
+  color: var(--color-gray-600);
+}
+
+/* Overline — ALWAYS uppercase, only authorized all-caps use */
+.overline {
+  font-family: var(--font-body);
+  font-size: var(--text-overline);
+  font-weight: var(--weight-medium);
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-cyan);
+}
+
+/* Monospace — for technical values, code, terminal */
+code,
+pre,
+.mono {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+
+/* Paragraph spacing */
+p + p {
+  margin-top: var(--space-4);
+}
+
+/* Links */
+a {
+  color: var(--color-cyan);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-navy);
+}
+
+/* Strong / emphasis */
+strong {
+  font-weight: var(--weight-semibold);
+  color: var(--color-navy);
+}
+
+em {
+  font-style: italic;
+}
+
+/* Prohibited: no underline except links, no shadows, no outlines */

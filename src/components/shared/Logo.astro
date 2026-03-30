@@ -1,0 +1,61 @@
+---
+/**
+ * Logo — BlueVex brand mark
+ * Renders official brand logos from PNG assets
+ *
+ * Variants: horizontal | mark-only
+ * Theme:    light (navy on white) | dark (white on navy)
+ */
+
+import logoHorizontal from '../../assets/business_logo_horizontal.png';
+import logoHorizontalNegative from '../../assets/business_logo_horizontal_negative.png';
+import isotype from '../../assets/business_isotype.png';
+import isotypeNegative from '../../assets/business_logo_negative.png';
+
+interface Props {
+  variant?: 'horizontal' | 'mark-only';
+  theme?: 'light' | 'dark';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  class?: string;
+}
+
+const {
+  variant = 'horizontal',
+  theme = 'light',
+  size = 'md',
+  class: className = '',
+} = Astro.props;
+
+// Select logo based on variant and theme
+const logoSrc = variant === 'horizontal'
+  ? (theme === 'dark' ? logoHorizontalNegative.src : logoHorizontal.src)
+  : (theme === 'dark' ? isotypeNegative.src : isotype.src);
+
+const heights = { sm: 28, md: 36, lg: 48, xl: 64 };
+const height = heights[size];
+---
+
+<a href="/" class={`logo logo--${variant} logo--${size} ${className}`} aria-label="BlueVex — Inicio">
+  <img
+    class="logo__mark"
+    src={logoSrc}
+    alt="BlueVex"
+    height={height}
+  />
+</a>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .logo__mark {
+    flex-shrink: 0;
+    display: block;
+    width: auto;
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+/**
+ * Divider — BlueVex UI Component
+ * Horizontal separator lines.
+ *
+ * Variants: default (gray) | accent (cyan) | strong (navy)
+ */
+
+interface Props {
+  variant?: 'default' | 'accent' | 'strong';
+  spacing?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  spacing = 'md',
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'divider',
+  `divider--${variant}`,
+  `divider--${spacing}`,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<hr class={classes} role="separator" />
+
+<style>
+  .divider {
+    border: none;
+    width: 100%;
+  }
+
+  /* Variants */
+  .divider--default { border-top: 1px solid var(--color-gray-100); }
+  .divider--accent  { border-top: 1px solid var(--color-cyan); }
+  .divider--strong  { border-top: 1px solid var(--color-navy); }
+
+  /* Spacing */
+  .divider--sm { margin-block: var(--space-4); }
+  .divider--md { margin-block: var(--space-8); }
+  .divider--lg { margin-block: var(--space-16); }
+</style>

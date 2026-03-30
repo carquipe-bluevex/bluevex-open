@@ -1,18 +1,16 @@
-import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/static';
+import { defineConfig } from "astro/config";
+import vercel from "@astrojs/vercel";
 
 export default defineConfig({
-  output: 'static',
-  adapter: vercel(),
-  integrations: [tailwind()],
-  site: 'https://bluevex.com',
-  build: {
-    inlineStylesheets: 'auto'
-  },
+  output: "static",
+  site: "https://www.bluevex.tech",
+  compressHTML: true,
   vite: {
     build: {
-      cssMinify: true
-    }
-  }
+      sourcemap: false,
+      minify: "esbuild",
+    },
+  },
+  adapter: vercel(),
+  integrations: [],
 });

@@ -1,0 +1,227 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import EmailCta from '../../components/ui/EmailCta.astro';
+import Section from '../../components/layout/Section.astro';
+import Icon from '../../components/shared/Icon.astro';
+
+const tiers = [
+  {
+    name: 'Básico',
+    target: 'Microempresas',
+    employees: '< 10 empleados',
+    sla: '< 6h críticas',
+    hours: '9h / mes',
+    coverage: 'L–V 8:00–18:00',
+    onsite: '1 visita trimestral',
+    includes: [
+      'Soporte remoto para incidencias y asistencia ofimática',
+      'Mantenimiento preventivo esencial (actualizaciones, parches)',
+      'Resolución de fallos de software',
+      'Revisión preventiva trimestral presencial',
+    ],
+  },
+  {
+    name: 'Estándar',
+    target: 'Pequeñas empresas',
+    employees: '10–49 empleados',
+    sla: '< 4h críticas',
+    hours: '14h / mes',
+    coverage: 'L–V 8:00–18:00',
+    onsite: '1 visita mensual',
+    includes: [
+      'Todo lo del nivel Básico',
+      'Helpdesk remoto',
+      'Mantenimiento integral de PCs y servidor',
+      'Gestión básica de red (switching, WiFi, firewall)',
+      'Antivirus centralizado y backup gestionado',
+      'Coordinación con terceros y proveedores TI',
+      'Informe mensual de estado y actividad',
+    ],
+    highlighted: true,
+  },
+  {
+    name: 'Avanzado',
+    target: 'Medianas empresas',
+    employees: '50–250 empleados',
+    sla: '< 2h · 24/7',
+    hours: '41h / mes',
+    coverage: '24/7 sistemas críticos',
+    onsite: 'Periódico planificado',
+    includes: [
+      'Todo lo del nivel Estándar',
+      'Monitorización continua 24/7',
+      'Gestión proactiva de alertas e incidencias',
+      'Técnicos de referencia asignados',
+      'Control de disponibilidad y rendimiento',
+      'Informes ejecutivos semanales',
+    ],
+  },
+  {
+    name: 'Premium',
+    target: 'Grandes empresas',
+    employees: '> 250 empleados',
+    sla: 'A medida',
+    hours: 'A medida',
+    coverage: 'A medida',
+    onsite: 'Dedicación continua',
+    includes: [
+      'Servicio completamente personalizado',
+      'Combinación de soporte avanzado + consultoría continua',
+      'Acuerdos específicos de disponibilidad',
+      'Integración con CTO as a Service',
+      'SLA negociado según criticidad del negocio',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Soporte Tecnológico — BlueVex"
+  description="Soporte tecnológico 24/7 con SLAs medibles y responsabilidad unificada. Desde microempresas hasta entornos críticos. Respuesta garantizada en tiempos acordados."
+  currentPath="/servicios/soporte"
+>
+
+  <section class="page-hero bg-white">
+    <div class="container">
+      <a href="/servicios" class="breadcrumb caption">← Servicios</a>
+      <p class="overline mt-4">Soporte Tecnológico</p>
+      <h1 class="display page-hero__title">Operación estable.<br />Respuesta garantizada.</h1>
+      <p class="body-l page-hero__sub">Nos encargamos de que tu tecnología funcione sin interrupciones. SLAs medibles, responsabilidad unificada y un equipo senior que actúa antes de que el problema te afecte.</p>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <Section bg="off-white" size="md">
+    <div class="grid-3">
+      <div class="principle">
+        <Icon name="shield-check" size={24} color="var(--color-cyan)" />
+        <h4 class="mt-3">Más que resolver tickets</h4>
+        <p class="body-s mt-2" style="color:var(--color-gray-600)">El soporte actúa como sensor continuo de mejora. Detectamos riesgos antes de que se conviertan en incidentes.</p>
+      </div>
+      <div class="principle">
+        <Icon name="monitor" size={24} color="var(--color-cyan)" />
+        <h4 class="mt-3">Responsabilidad unificada</h4>
+        <p class="body-s mt-2" style="color:var(--color-gray-600)">Un único responsable frente a múltiples proveedores. Sin zonas grises ni «eso no es lo nuestro».</p>
+      </div>
+      <div class="principle">
+        <Icon name="path" size={24} color="var(--color-cyan)" />
+        <h4 class="mt-3">Escalado por contrato</h4>
+        <p class="body-s mt-2" style="color:var(--color-gray-600)">Los compromisos de atención y tiempos de respuesta se definen por contrato. Nada implícito, todo medible.</p>
+      </div>
+    </div>
+  </Section>
+
+  <!-- TIERS -->
+  <Section bg="white" overline="Niveles de servicio" heading="Elige el nivel que tu empresa necesita" size="lg">
+    <div class="tiers-grid">
+      {tiers.map(t => (
+        <div class={`tier-card ${t.highlighted ? 'tier-card--highlight' : ''}`}>
+          {t.highlighted && <div class="tier-card__badge">Más contratado</div>}
+          <div class="tier-card__header">
+            <h3 class="tier-card__name">{t.name}</h3>
+            <p class="tier-card__target caption">{t.target} · {t.employees}</p>
+          </div>
+          <div class="tier-card__meta">
+            <div class="tier-meta-item">
+              <Icon name="shield-check" size={16} color="var(--color-cyan)" />
+              <span class="caption">SLA: {t.sla}</span>
+            </div>
+            <div class="tier-meta-item">
+              <Icon name="monitor" size={16} color="var(--color-cyan)" />
+              <span class="caption">Cobertura: {t.coverage}</span>
+            </div>
+            <div class="tier-meta-item">
+              <Icon name="map-pin" size={16} color="var(--color-cyan)" />
+              <span class="caption">Presencialidad: {t.onsite}</span>
+            </div>
+            <div class="tier-meta-item">
+              <Icon name="monitor" size={16} color="var(--color-cyan)" />
+              <span class="caption">Horas incluidas: {t.hours}</span>
+            </div>
+          </div>
+          <ul class="tier-card__list">
+            {t.includes.map(item => (
+              <li class="tier-card__item">
+                <Icon name="check" size={16} color="var(--color-success)" />
+                <span class="body-s">{item}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="tier-card__cta">
+            <Button href="/contacto" variant={t.highlighted ? 'primary' : 'secondary'} fullWidth>
+              Solicitar propuesta
+            </Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- CTA -->
+  <Section bg="navy" size="md" centered>
+    <h2 style="color:var(--color-white)">¿No sabes qué nivel necesitas?</h2>
+    <p class="body-l mt-4" style="color:var(--color-gray-400); max-width:480px; margin-inline:auto;">Lo averiguamos en una conversación de 30 minutos. Analizamos tu infraestructura actual y te recomendamos el nivel correcto.</p>
+    <div class="mt-8"><EmailCta size="lg" variant="dark" /></div>
+  </Section>
+
+</BaseLayout>
+
+<style>
+  .page-hero { padding-block: var(--space-16); }
+  .page-hero__title { color:var(--color-navy); margin-top:var(--space-4); }
+  .page-hero__sub   { color:var(--color-gray-600); max-width:580px; margin-top:var(--space-5); }
+  .breadcrumb { color:var(--color-gray-600); text-decoration:none; display:inline-block; }
+  .breadcrumb:hover { color:var(--color-navy); }
+  .principle { padding: var(--space-6); background:var(--color-white); border-radius:var(--radius-lg); border:var(--border-thin); }
+
+  .tiers-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-4); align-items:stretch; }
+
+  .tier-card {
+    border:var(--border-thin);
+    border-radius:var(--radius-xl);
+    padding:var(--space-6);
+    background:var(--color-white);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:var(--space-5);
+    height: 100%;
+  }
+
+  .tier-card--highlight {
+    border-color:var(--color-navy);
+    box-shadow: var(--shadow-md);
+  }
+
+  .tier-card__badge {
+    position:absolute;
+    top:-12px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--color-navy);
+    color:var(--color-white);
+    font-size:var(--text-label-s);
+    font-weight:var(--weight-medium);
+    padding:var(--space-1) var(--space-3);
+    border-radius:var(--radius-full);
+    white-space:nowrap;
+  }
+
+  .tier-card__header { border-bottom:var(--border-thin); padding-bottom:var(--space-4); }
+  .tier-card__name { font-size:var(--text-h3); color:var(--color-navy); margin-bottom:var(--space-1); }
+  .tier-card__target { color:var(--color-gray-600); }
+
+  .tier-card__meta { display:flex; flex-direction:column; gap:var(--space-2); }
+  .tier-meta-item { display:flex; align-items:center; gap:var(--space-2); }
+  .tier-meta-item .caption { color:var(--color-gray-800); }
+
+  .tier-card__list { display:flex; flex-direction:column; gap:var(--space-2); flex:1; }
+  .tier-card__item { display:flex; align-items:flex-start; gap:var(--space-2); }
+  .tier-card__item .body-s { color:var(--color-gray-600); }
+
+  .tier-card__cta { margin-top:auto; }
+
+  @media (max-width:1024px) { .tiers-grid { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:640px)  { .tiers-grid { grid-template-columns:1fr; } }
+</style>

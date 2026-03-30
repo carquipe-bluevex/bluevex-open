@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailCta from '../components/ui/EmailCta.astro';
+import Picture from '../components/shared/Picture.astro';
+import Section from '../components/layout/Section.astro';
+
+const blueAngels = '/assets/illustrations/blue_angels.avif';
+
+const values = [
+  {
+    title: 'Excelencia operativa',
+    desc: 'No vendemos promesas. Lo que hacemos, lo hacemos al máximo nivel. Estándares altos, resultados medibles y continuidad real.',
+  },
+  {
+    title: 'Disciplina',
+    desc: 'Sin improvisación. Procedimientos claros, ejecución consistente y decisiones con criterio, incluso bajo presión.',
+  },
+  {
+    title: 'Coordinación total',
+    desc: 'El valor no está en el héroe individual, sino en un equipo que funciona como un solo sistema.',
+  },
+  {
+    title: 'Confianza',
+    desc: 'Puedes delegar de verdad. Todo está bajo control, incluso cuando avanzamos rápido.',
+  },
+];
+---
+
+<BaseLayout
+  title="Nosotros — BlueVex"
+  description="Quiénes somos y cómo trabajamos. Empresa tecnológica con criterio propio, responsabilidad real ante clientes y sin conflictos de interés comercial."
+  currentPath="/nosotros"
+>
+  <!-- HERO -->
+  <section class="page-hero bg-white">
+    <div class="container">
+      <p class="overline mt-4">Nosotros</p>
+      <h1 class="display page-hero__title">Tecnología con criterio.<br />Responsabilidad real.</h1>
+      <p class="body-l page-hero__sub">No somos un proveedor más. Somos el responsable tecnológico de nuestros clientes. Eso implica un nivel de compromiso, criterio y honestidad que no se puede fingir.</p>
+    </div>
+  </section>
+
+  <!-- ORIGIN -->
+  <Section bg="navy" size="lg">
+    <div class="origin-grid">
+      <div class="origin-text">
+        <p class="overline" style="color:var(--color-cyan)">Por qué existe BlueVex</p>
+        <h2 class="mt-3">Nacimos de una observación incómoda.</h2>
+        <p class="body-l mt-6" style="color:var(--color-gray-600)">Las empresas medianas y pequeñas se enfrentan a decisiones tecnológicas complejas sin tener acceso a criterio técnico independiente. Sus proveedores tienen intereses propios. Sus empleados no siempre tienen visión estratégica. Y los consultores generalistas no entienden la tecnología con suficiente profundidad.</p>
+        <p class="body-l mt-4" style="color:var(--color-gray-600)">BlueVex existe para ser esa figura que falta: un responsable tecnológico que entiende el negocio, domina la tecnología y no tiene incentivos para recomendarte lo que no necesitas.</p>
+        <p class="body-l mt-4" style="color:var(--color-gray-600)">Trabajamos con un número limitado de clientes de forma intencionada. Más clientes significaría menos profundidad, y la profundidad es exactamente lo que nos diferencia.</p>
+      </div>
+      <div class="origin-stats">
+        <div class="stat-card">
+          <div class="stat-card__number">+10</div>
+          <div class="stat-card__label body-s">Años experiencia acumulada</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">100%</div>
+          <div class="stat-card__label body-s">Especialización pymes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">4</div>
+          <div class="stat-card__label body-s">Líneas de servicio</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card__number">ES</div>
+          <div class="stat-card__label body-s">Alcance geográfico</div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- VALUES -->
+  <Section bg="off-white" overline="Cómo trabajamos" heading="Los principios que no negociamos" size="md">
+    <div class="grid-2" style="gap:var(--space-6)">
+      {values.map(v => (
+        <div class="value-item">
+          <h4>{v.title}</h4>
+          <p class="body-s mt-3" style="color:var(--color-gray-600)">{v.desc}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- INSPIRACIÓN -->
+  <Section bg="navy" size="lg">
+    <div class="inspiration-grid">
+      <div class="inspiration-text">
+        <p class="overline" style="color:var(--color-cyan)">Inspiración</p>
+        <h2 class="mt-3">Los Blue Angels: precisión bajo presión.</h2>
+        <p class="body-l mt-6" style="color:var(--color-gray-400)">El equipo de acrobacias aéreas de la Marina vuela a 700 km/h en formación cerrada. Están separados por menos de un metro. Cada decisión, cada movimiento, requiere precisión milimétrica. No hay margen para la improvisación. La excelencia extrema es el único estándar.</p>
+        <p class="body-l mt-4" style="color:var(--color-gray-400)">En BlueVex replicamos eso en tu infraestructura tecnológica. Lo que construimos está diseñado para funcionar con ese nivel de exactitud. Precisión operativa extrema, con la mentalidad de quienes vuelan sin margen de error.</p>
+      </div>
+      <div class="inspiration-image">
+        <Picture src={blueAngels} alt="Blue Angels" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA -->
+  <Section bg="navy" size="md" centered>
+    <h2 style="color:var(--color-white)">¿Quieres saber si encajamos?</h2>
+    <p class="body-l mt-4" style="color:var(--color-gray-400); max-width:480px; margin-inline:auto;">Una conversación de 30 minutos es suficiente para saber si podemos ayudarte y si tiene sentido trabajar juntos.</p>
+    <div class="mt-8"><EmailCta size="lg" variant="dark" /></div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .page-hero { padding-block:var(--space-16); }
+  .page-hero__title { color:var(--color-navy); margin-top:var(--space-4); }
+  .page-hero__sub   { color:var(--color-gray-600); max-width:580px; margin-top:var(--space-5); }
+
+  .origin-grid { display:grid; grid-template-columns:1fr 360px; gap:var(--space-16); align-items:center; }
+
+  .origin-stats { display:grid; grid-template-columns:1fr 1fr; gap:var(--space-4); }
+  .stat-card {
+    background:var(--color-off-white);
+    border:var(--border-thin);
+    border-radius:var(--radius-xl);
+    padding:var(--space-6);
+    text-align:center;
+  }
+  .stat-card__number { font-family:var(--font-display); font-size:2.5rem; font-weight:var(--weight-semibold); color:var(--color-navy); line-height:1; }
+  .stat-card__label  { color:var(--color-gray-600); margin-top:var(--space-2); }
+
+  :global(.bg-navy .origin-text h2) { color: var(--color-white); }
+  :global(.bg-navy .origin-text .body-l) { color: var(--color-gray-400) !important; }
+  :global(.bg-navy .stat-card) {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  :global(.bg-navy .stat-card__number) { color: var(--color-white); }
+  :global(.bg-navy .stat-card__label) { color: var(--color-gray-400); }
+
+  .value-item { padding:var(--space-6); background:var(--color-white); border-radius:var(--radius-lg); border:var(--border-thin); }
+  .value-item h4 { color:var(--color-navy); margin:0; }
+
+
+  .inspiration-grid { display:grid; grid-template-columns:1fr 360px; gap:var(--space-16); align-items:center; }
+  .inspiration-text h2 { color:var(--color-white); }
+  .inspiration-image { display:flex; align-items:center; justify-content:center; }
+  .inspiration-image img { width:100%; height:auto; display:block; }
+
+  .model-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-4); }
+
+  @media (max-width:768px) {
+    .inspiration-grid { grid-template-columns:1fr; }
+  }
+
+</style>

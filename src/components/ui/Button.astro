@@ -1,0 +1,172 @@
+---
+/**
+ * Button — BlueVex UI Component
+ *
+ * Variants: primary | secondary | ghost | danger
+ * Sizes:    sm | md | lg
+ * Can render as <button> or <a> depending on `href` prop
+ */
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+  fullWidth?: boolean;
+  class?: string;
+  target?: string;
+  rel?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  type = 'button',
+  disabled = false,
+  fullWidth = false,
+  class: className = '',
+  target,
+  rel,
+  ...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+
+const classes = [
+  'btn',
+  `btn--${variant}`,
+  `btn--${size}`,
+  fullWidth && 'btn--full',
+  disabled && 'btn--disabled',
+  className,
+].filter(Boolean).join(' ');
+---
+
+{href ? (
+  <a
+    href={href}
+    class={classes}
+    target={target}
+    rel={rel}
+    aria-disabled={disabled}
+    {...rest}
+  >
+    <slot />
+  </a>
+) : (
+  <button
+    type={type}
+    class={classes}
+    disabled={disabled}
+    {...rest}
+  >
+    <slot />
+  </button>
+)}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-label);
+    line-height: 1;
+    letter-spacing: 0;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast),
+      box-shadow var(--transition-fast);
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* ---- SIZES ---- */
+  .btn--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-label-s);
+  }
+
+  .btn--md {
+    padding: var(--space-3) var(--space-6);
+  }
+
+  .btn--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--text-body);
+  }
+
+  /* ---- VARIANTS ---- */
+
+  /* Primary — white text on Navy */
+  .btn--primary {
+    background-color: var(--color-navy);
+    color: var(--color-white);
+    border-color: var(--color-navy);
+  }
+  .btn--primary:hover:not(.btn--disabled) {
+    background-color: var(--color-steel-blue);
+    border-color: var(--color-steel-blue);
+  }
+  .btn--primary:active:not(.btn--disabled) {
+    background-color: #0f1b38;
+    border-color: #0f1b38;
+  }
+
+  /* Secondary — Navy border + text on white */
+  .btn--secondary {
+    background-color: transparent;
+    color: var(--color-navy);
+    border-color: var(--color-navy);
+  }
+  .btn--secondary:hover:not(.btn--disabled) {
+    background-color: color-mix(in srgb, var(--color-cyan) 12%, transparent);
+    border-color: var(--color-cyan);
+  }
+  .btn--secondary:active:not(.btn--disabled) {
+    background-color: var(--color-off-white);
+  }
+
+  /* Ghost — Cyan text, no border */
+  .btn--ghost {
+    background-color: transparent;
+    color: var(--color-cyan);
+    border-color: transparent;
+  }
+  .btn--ghost:hover:not(.btn--disabled) {
+    background-color: var(--color-gray-100);
+    color: var(--color-navy);
+  }
+
+  /* Danger — Error red */
+  .btn--danger {
+    background-color: var(--color-error);
+    color: var(--color-white);
+    border-color: var(--color-error);
+  }
+  .btn--danger:hover:not(.btn--disabled) {
+    background-color: #a82f40;
+    border-color: #a82f40;
+  }
+
+  /* ---- STATES ---- */
+  .btn--full {
+    width: 100%;
+  }
+
+  .btn--disabled,
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+</style>

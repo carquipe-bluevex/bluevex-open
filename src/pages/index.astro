@@ -1,168 +1,540 @@
 ---
+import { Picture as AstroPicture, getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ThemeToggle from '../components/ThemeToggle.astro';
-import Icon from '../assets/icon.svg?raw';
+import Button from '../components/ui/Button.astro';
+import ServiceFeatureCard from '../components/ui/ServiceFeatureCard.astro';
+import Section from '../components/layout/Section.astro';
+import Icon from '../components/shared/Icon.astro';
+import Picture from '../components/shared/Picture.astro';
+import EmailCta from '../components/ui/EmailCta.astro';
+import Timeline from '../components/ui/Timeline.astro';
+import planesPng from '../assets/hero/planes.png';
+import cloudsPng from '../assets/hero/clouds.png';
 
-const currentYear = new Date().getFullYear();
+// Imágenes (las versiones PNG/WebP/AVIF se sirven automáticamente)
+const planesPreload = await getImage({
+  src: planesPng,
+  width: 840,
+  format: 'avif',
+});
+const supportTowerControl = '/assets/illustrations/support_tower_control.avif';
+const projectsPlaneConstruction = '/assets/illustrations/projects_plane_construction.avif';
+const ctoIllustration = '/assets/illustrations/cto.avif';
+const licenseIllustration = '/assets/illustrations/license.avif';
+const teamIllustration = '/assets/illustrations/team.avif';
 ---
 
-<BaseLayout title="BlueVex — Próximamente">
-  <!-- Floating geometric elements -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-    <!-- Large blob -->
-    <div class="absolute -top-40 -right-40 w-[500px] h-[500px] bg-secondary/5 dark:bg-secondary/10 blob float opacity-60"></div>
+<BaseLayout
+  title="BlueVex — Tecnología que marca el rumbo"
+  description="Soporte tecnológico, proyectos de ingeniería, CTO as a Service y licenciamiento. Responsabilidad integral para empresas en crecimiento."
+  image="/og-default.png"
+  transparentHeader={true}
+>
+  <Fragment slot="head">
+    <link rel="preload" as="image" href={planesPreload.src} type="image/avif" />
+  </Fragment>
 
-    <!-- Geometric shapes -->
-    <div class="absolute top-1/4 left-10 w-2 h-20 bg-primary/10 dark:bg-white/10 float-delayed"></div>
-    <div class="absolute top-1/3 right-20 w-32 h-px bg-gradient-to-r from-secondary/40 to-transparent float"></div>
-    <div class="absolute bottom-1/4 left-1/4 w-px h-32 bg-gradient-to-b from-primary/20 dark:from-white/20 to-transparent float-delayed"></div>
-    <div class="absolute bottom-20 right-1/3 w-4 h-4 border border-secondary/30 rotate-45 float"></div>
-
-    <!-- Code fragments floating -->
-    <div class="absolute top-20 right-10 font-mono text-[10px] text-primary/15 dark:text-white/15 float-delayed hidden md:block">
-      {"<init />"}
-    </div>
-    <div class="absolute bottom-32 left-20 font-mono text-[10px] text-primary/15 dark:text-white/15 float hidden md:block">
-      {"{...loading}"}
-    </div>
-  </div>
-
-  <main class="relative min-h-screen flex flex-col">
-    <!-- Top bar -->
-    <header class="reveal p-6 md:p-8 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-2 h-2 rounded-full bg-secondary pulse-ring"></div>
-        <span class="font-mono text-xs text-primary/40 dark:text-white/40 tracking-widest uppercase">Sistema en desarrollo</span>
-      </div>
-      <ThemeToggle />
-    </header>
-
-    <!-- Main content -->
-    <div class="flex-1 flex items-center px-6 md:px-8 lg:px-16">
-      <div class="w-full max-w-6xl mx-auto">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-
-          <!-- Left column: Main content -->
-          <div class="lg:col-span-7 space-y-8">
-            <!-- Brand -->
-            <div class="reveal reveal-delay-1">
-              <div class="flex flex-col items-start gap-4 mb-8">
-                <!-- Logo mark -->
-                <div class="relative w-32 h-20 md:w-40 md:h-24 lg:w-48 lg:h-28 flex items-center justify-center">
-                  <div class="w-full h-full text-primary dark:text-white [&_svg]:w-full [&_svg]:h-full [&_svg]:fill-current [&_svg]:object-contain" set:html={Icon} />
-                  <div class="absolute inset-0 bg-primary/10 dark:bg-white/10 blur-3xl scale-150 -z-10"></div>
-                </div>
-                <!-- Brand name -->
-                <span class="text-4xl md:text-5xl font-bold tracking-tight">BlueVex</span>
-              </div>
-            </div>
-
-            <!-- Headline with glitch -->
-            <h1 class="reveal reveal-delay-2">
-              <span class="glitch text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.9]">
-                Próximamente<span class="cursor"></span>
-              </span>
-            </h1>
-
-            <!-- Divider -->
-            <div class="gradient-line w-full max-w-xs"></div>
-
-            <!-- Description -->
-            <p class="reveal reveal-delay-3 text-lg md:text-xl text-primary/60 dark:text-white/60 max-w-md leading-relaxed">
-              Tecnología para empresas que crecen con
-              <span class="text-primary dark:text-white font-medium">criterio y ambición</span>
-            </p>
-
-            <!-- Code block style info -->
-            <div class="reveal reveal-delay-4 code-block p-4 max-w-sm bg-primary/[0.02] dark:bg-white/[0.04]">
-              <div class="flex items-center gap-2 mb-2">
-                <span class="text-secondary">$</span>
-                <span class="text-primary/80 dark:text-white/80">bluevex</span>
-                <span class="text-primary/40 dark:text-white/40">--status</span>
-              </div>
-              <div class="text-primary/50 dark:text-white/50 text-xs space-y-1">
-                <p><span class="text-secondary">→</span> continuidad: <span class="text-emerald-600 dark:text-emerald-400">garantizada</span></p>
-                <p><span class="text-secondary">→</span> fiabilidad: <span class="text-emerald-600 dark:text-emerald-400">probada</span></p>
-                <p><span class="text-secondary">→</span> evolución: <span class="text-amber-600 dark:text-amber-400">en progreso...</span></p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Right column: Abstract visual -->
-          <div class="lg:col-span-5 reveal reveal-delay-5 hidden lg:block">
-            <div class="relative aspect-square max-w-md mx-auto">
-              <!-- Animated hexagon structure -->
-              <svg class="w-full h-full" viewBox="0 0 400 400" fill="none">
-                <!-- Outer ring -->
-                <path
-                  d="M200 40L340 100V260L200 360L60 260V100L200 40Z"
-                  stroke="currentColor"
-                  stroke-width="0.5"
-                  class="text-primary/20 float"
-                />
-                <!-- Middle ring -->
-                <path
-                  d="M200 80L300 120V240L200 320L100 240V120L200 80Z"
-                  stroke="currentColor"
-                  stroke-width="0.5"
-                  class="text-secondary/40 float-delayed"
-                />
-                <!-- Inner hexagon -->
-                <path
-                  d="M200 120L260 150V210L200 280L140 210V150L200 120Z"
-                  fill="currentColor"
-                  class="text-secondary/10"
-                />
-                <!-- Core -->
-                <path
-                  d="M200 160L230 175V205L200 240L170 205V175L200 160Z"
-                  fill="currentColor"
-                  class="text-primary"
-                />
-                <!-- Connection lines -->
-                <line x1="200" y1="40" x2="200" y2="120" stroke="currentColor" stroke-width="0.5" class="text-primary/15"/>
-                <line x1="340" y1="100" x2="260" y2="150" stroke="currentColor" stroke-width="0.5" class="text-primary/15"/>
-                <line x1="60" y1="100" x2="140" y2="150" stroke="currentColor" stroke-width="0.5" class="text-primary/15"/>
-
-                <!-- Data points -->
-                <circle cx="200" cy="40" r="3" fill="currentColor" class="text-secondary/60"/>
-                <circle cx="340" cy="100" r="3" fill="currentColor" class="text-secondary/60"/>
-                <circle cx="340" cy="260" r="3" fill="currentColor" class="text-secondary/60"/>
-                <circle cx="200" cy="360" r="3" fill="currentColor" class="text-secondary/60"/>
-                <circle cx="60" cy="260" r="3" fill="currentColor" class="text-secondary/60"/>
-                <circle cx="60" cy="100" r="3" fill="currentColor" class="text-secondary/60"/>
-              </svg>
-
-              <!-- Decorative labels -->
-              <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full font-mono text-[10px] text-primary/30 dark:text-white/30">
-                node_0x1A
-              </div>
-              <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full font-mono text-[10px] text-primary/30 dark:text-white/30">
-                root_sys
-              </div>
-            </div>
-          </div>
+  <!-- ============================================================
+       HERO
+  ============================================================= -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <h1 class="display-xl hero__headline">
+          Tu tecnología funciona.<br />
+          <span class="hero__headline-accent">Tú te despreocupas.</span>
+        </h1>
+        <p class="body-l hero__sub">
+          Transformamos la infraestructura tecnológica de empresas en crecimiento con criterio
+          arquitectónico y ejecución sin fricciones.
+        </p>
+        <div class="hero__ctas">
+          <EmailCta size="lg" />
+          <Button href="/servicios" variant="secondary" size="lg">Ver servicios</Button>
         </div>
       </div>
+      <div class="hero__art" aria-hidden="true">
+        <AstroPicture
+          src={planesPng}
+          alt=""
+          class="hero__art-image"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          width={1024}
+          height={471}
+          widths={[420, 600, 840, 1024]}
+          sizes="(min-width: 1024px) 420px, 1px"
+          formats={['avif', 'webp']}
+        />
+        <AstroPicture
+          src={cloudsPng}
+          alt=""
+          class="hero__art-clouds"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="low"
+          width={1024}
+          height={471}
+          widths={[420, 600, 840, 1024]}
+          sizes="(min-width: 1024px) 460px, 1px"
+          formats={['avif', 'webp']}
+        />
+      </div>
     </div>
+  </section>
 
-    <!-- Bottom bar -->
-    <footer class="reveal reveal-delay-6 p-6 md:p-8">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div class="flex items-center gap-6">
-          <span class="font-mono text-xs text-primary/30 dark:text-white/30">v0.0.1-alpha</span>
-          <div class="h-4 w-px bg-primary/10 dark:bg-white/10"></div>
-          <span class="font-mono text-xs text-primary/30 dark:text-white/30">ES</span>
+  <!-- ============================================================
+       SERVICES
+  ============================================================= -->
+  <Section
+    id="servicios"
+    bg="white"
+    overline="Lo que hacemos"
+    heading="Tecnología de principio a fin"
+    subheading="Ofrecemos un ecosistema completo de servicios diseñados para optimizar cada aspecto de su infraestructura tecnológica."
+  >
+    <div class="services-grid">
+      <ServiceFeatureCard
+        href="/servicios/soporte"
+        title="Soporte Tecnológico"
+        description="Operación continua de tus sistemas. Desde microempresas hasta entornos críticos con disponibilidad 24/7 y SLAs medibles."
+        tone="cyan"
+      >
+        <div class="service-media service-media--support">
+          <Picture src={supportTowerControl} alt="" class="service-media__image" loading="lazy" />
         </div>
-
-        <div class="font-mono text-sm text-primary/50 dark:text-white/50">
-          <span class="text-secondary">//</span> bluevex.tech
+      </ServiceFeatureCard>
+      <ServiceFeatureCard
+        href="/servicios/proyectos"
+        title="Proyectos"
+        description={`Tienes una idea o un problema sin
+resolver. Lo convertimos en
+software que funciona, en plazos
+reales y con presupuesto cerrado.
+Nada de proyectos eternos.`}
+        tone="steel"
+      >
+        <div class="service-media service-media--projects">
+          <Picture src={projectsPlaneConstruction} alt="" class="service-media__image" loading="lazy" />
         </div>
+      </ServiceFeatureCard>
+      <ServiceFeatureCard
+        href="/servicios/cto-as-a-service"
+        title="CTO as a Service"
+        description="Liderazgo tecnológico sin contratar un CTO a tiempo completo. Arquitectura, gobernanza IT y decisiones con criterio."
+        tone="navy"
+      >
+        <div class="service-media service-media--cto">
+          <Picture src={ctoIllustration} alt="" class="service-media__image" loading="lazy" />
+        </div>
+      </ServiceFeatureCard>
+      <ServiceFeatureCard
+        href="/servicios/licenciamiento"
+        title="Licenciamiento"
+        description={`La mayoría de empresas paga de
+más por software que no
+usa. Auditamos, optimizamos y
+negociamos tus licencias para que
+pagues solo lo que necesitas.`}
+        tone="teal"
+      >
+        <div class="service-media service-media--licenses">
+          <Picture src={licenseIllustration} alt="" class="service-media__image" loading="lazy" />
+        </div>
+      </ServiceFeatureCard>
+    </div>
+    <div class="services-cta">
+      <Button href="/servicios" variant="secondary">Ver todos los servicios</Button>
+    </div>
+  </Section>
 
-        <div class="font-mono text-[10px] text-primary/20 dark:text-white/20 tracking-wider">
-          {currentYear} — BUILDING THE FUTURE
+  <!-- ============================================================
+       WHY BLUEVEX
+  ============================================================= -->
+  <Section
+    bg="navy"
+    overline="Por qué BlueVex"
+    heading="No somos un proveedor más. Somos el responsable de tu tecnología."
+    subheading="Los valores que definen cómo trabajamos y por qué nuestros clientes no cambian de proveedor."
+    centered
+  >
+    <div class="why-grid">
+      <div class="why-item">
+        <h4 class="why-item__title">Excelencia operativa</h4>
+        <p class="why-item__desc">No vendemos promesas. Lo que hacemos, lo hacemos al máximo nivel. Estándares altos, resultados medibles y continuidad real.</p>
+      </div>
+      <div class="why-item">
+        <h4 class="why-item__title">Disciplina</h4>
+        <p class="why-item__desc">Sin improvisación. Procedimientos claros, ejecución consistente y decisiones con criterio, incluso bajo presión.</p>
+      </div>
+      <div class="why-item">
+        <h4 class="why-item__title">Coordinación total</h4>
+        <p class="why-item__desc">El valor no está en el héroe individual, sino en un equipo que funciona como un solo sistema.</p>
+      </div>
+      <div class="why-item">
+        <h4 class="why-item__title">Confianza</h4>
+        <p class="why-item__desc">Puedes delegar de verdad. Todo está bajo control, incluso cuando avanzamos rápido.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section
+    bg="white"
+    overline="Cómo trabajamos"
+    heading="Un proceso claro, sin vueltas"
+    subheading="Cuatro pasos simples para empezar con seguridad y mantener el control."
+  >
+    <Timeline
+      steps={[
+        {
+          title: 'Diagnóstico gratuito',
+          description:
+            'Una sesión. Sin PowerPoints de venta. Escuchamos, analizamos y te decimos la verdad sobre lo que está funcionando y lo que no en tu empresa.',
+        },
+        {
+          title: 'Propuesta a medida',
+          description:
+            'Una propuesta con alcance cerrado, precio fijo y plazos reales. Puedes contratar un servicio o varios. Sin letra pequeña. Sin costes ocultos.',
+        },
+        {
+          title: 'Empezamos en 48 horas',
+          description:
+            'Desde el primer día sabes qué pasa, quién te atiende y qué esperar de nosotros. Sin curva de aprendizaje. Sin sorpresas.',
+        },
+        {
+          title: 'Relación continua',
+          description:
+            'Cada 90 días revisamos contigo si lo que tienes sigue siendo lo que necesitas. Proponemos cambios antes de que tú los pidas.',
+        },
+      ]}
+    />
+    <div class="timeline-cta">
+      <Button href="/contacto" variant="primary" size="lg">Agendar Diagnóstico</Button>
+    </div>
+  </Section>
+
+  <Section
+    bg="gray-100"
+  >
+    <div class="talent-layout">
+      <div class="talent-content">
+        <p class="overline">Talento</p>
+        <h2>Trabaja con nosotros</h2>
+        <p class="body-l mt-4" style="color:var(--color-gray-600)">
+          Si eres de los que no les basta con que las cosas "funcionen" y quieren resolver problemas reales con la excelencia como estándar. Este puede ser tu sitio.
+        </p>
+        <div class="talent-cta">
+          <Button href="/talento#formulario-talento" variant="secondary" size="lg">Únete al equipo</Button>
         </div>
       </div>
-    </footer>
-  </main>
+      <div class="talent-art" aria-hidden="true">
+        <Picture src={teamIllustration} alt="" loading="lazy" />
+      </div>
+    </div>
+  </Section>
+
+  <!-- ============================================================
+       FINAL CTA
+  ============================================================= -->
+  <Section bg="off-white" size="lg" centered>
+    <div class="final-cta">
+      <p class="overline">¿Listo para delegar la tecnología?</p>
+      <h2>Sabemos lo que necesitas<br />y cómo resolverlo.</h2>
+      <p class="body-l mt-6" style="color:var(--color-gray-600); max-width:520px; margin-inline:auto;">
+        El primer paso es una conversación. Sin compromiso, sin plantillas genéricas: analizamos tu situación y te decimos exactamente qué haríamos.
+      </p>
+      <div class="final-cta__btns mt-8">
+        <EmailCta size="lg" />
+        <Button href="/nosotros" variant="ghost" size="lg">Conoce el equipo →</Button>
+      </div>
+    </div>
+  </Section>
+
 </BaseLayout>
+
+<style>
+  /* ---- HERO ---- */
+  .hero {
+    background: linear-gradient(160deg, #f3f6ff 0%, var(--color-white) 55%, var(--color-off-white) 100%);
+    padding-block: calc(80px + var(--space-16)) var(--space-20);
+    overflow: hidden;
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .hero__content { color: var(--color-navy); }
+
+  .hero__headline {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    color: var(--color-navy);
+    margin-top: var(--space-4);
+    line-height: 1.05;
+  }
+
+  .hero__headline-accent { color: var(--color-cyan); }
+
+  .hero__sub {
+    color: var(--color-gray-600);
+    max-width: 540px;
+    margin-top: var(--space-6);
+  }
+
+  .hero__ctas {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    flex-wrap: wrap;
+  }
+
+  .hero__trust {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-top: var(--space-8);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-gray-100);
+  }
+
+  /* Hero art */
+  .hero__art {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .hero__art-image {
+    width: min(600px, 100%);
+    height: auto;
+    filter: drop-shadow(0 18px 24px rgba(22, 38, 76, 0.16));
+    animation: fly-drift 6s ease-in-out infinite;
+    transform-origin: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero__art-clouds {
+    position: absolute;
+    width: min(640px, 110%);
+    height: auto;
+    left: 64%;
+    top: 80%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    opacity: 0.9;
+    animation: clouds-drift 12s ease-in-out infinite;
+  }
+
+  @keyframes fly-drift {
+    0% { transform: translate3d(0, 0, 0) rotate(-1deg); }
+    35% { transform: translate3d(10px, -8px, 0) rotate(0.8deg); }
+    65% { transform: translate3d(-8px, 10px, 0) rotate(-0.6deg); }
+    100% { transform: translate3d(0, 0, 0) rotate(-1deg); }
+  }
+
+  @keyframes clouds-drift {
+    0% { transform: translate(-50%, -50%) translate3d(-6px, -6px, 0); }
+    50% { transform: translate(-50%, -50%) translate3d(6px, 6px, 0); }
+    100% { transform: translate(-50%, -50%) translate3d(-6px, -6px, 0); }
+  }
+
+  /* ---- SERVICES ---- */
+  .services-grid {
+    margin-top: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+  }
+
+  .service-media {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: var(--color-navy);
+  }
+
+  .service-media__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .service-media--cto .service-media__image {
+    width: 100%;
+    height: 100%;
+    object-position: center bottom;
+    margin-bottom: 0;
+  }
+
+  .service-media--support {
+    background: transparent;
+  }
+
+  .service-media--projects {
+    background: transparent;
+  }
+
+  .service-media--projects .service-media__image {
+    padding: var(--space-4) var(--space-4) 0;
+    box-sizing: border-box;
+    object-position: center bottom;
+  }
+
+  .service-media--licenses .service-media__image {
+    padding: var(--space-4) var(--space-4) 0;
+    box-sizing: border-box;
+  }
+
+  .service-media--cto {
+    background: transparent;
+  }
+
+  .service-media--licenses {
+    background: transparent;
+  }
+
+
+
+
+
+
+  .services-cta {
+    margin-top: var(--space-10);
+    text-align: center;
+  }
+
+  /* ---- WHY ---- */
+  .why-grid {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+
+  .why-item {
+    padding: var(--space-8);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius-lg);
+    flex: 1;
+    min-width: 220px;
+    position: relative;
+    isolation: isolate;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .why-item:hover {
+    border-color: color-mix(in srgb, var(--color-cyan) 60%, transparent);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-cyan) 30%, transparent),
+                0 10px 30px color-mix(in srgb, var(--color-cyan) 16%, transparent);
+  }
+
+
+  .why-item:nth-child(odd) {
+    transform: translateY(-16px);
+  }
+
+  .why-item:nth-child(even) {
+    transform: translateY(16px);
+  }
+
+
+  .why-item__title {
+    color: var(--color-white);
+    font-size: var(--text-h3);
+    margin-bottom: var(--space-3);
+  }
+
+  .why-item__desc {
+    font-size: var(--text-body-s);
+    color: var(--color-gray-400);
+    line-height: 1.7;
+  }
+
+
+  /* ---- FINAL CTA ---- */
+  .final-cta { max-width: 640px; margin-inline: auto; text-align: center; }
+  .final-cta__btns { display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap; }
+
+  .timeline-cta {
+    margin-top: var(--space-10);
+    display: flex;
+    justify-content: center;
+  }
+
+  .talent-cta {
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .talent-content h2 {
+    margin-top: var(--space-3);
+  }
+
+  .talent-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 460px);
+    align-items: center;
+    gap: var(--space-10);
+  }
+
+  .talent-art {
+    justify-self: end;
+  }
+
+  .talent-art img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+
+  /* ---- RESPONSIVE ---- */
+  @media (max-width: 1024px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__art { display: none; }
+    .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .why-grid { flex-wrap: wrap; }
+    .why-item { transform: none; }
+    .talent-layout { grid-template-columns: 1fr; }
+    .talent-cta { justify-content: center; }
+    .talent-art { justify-self: center; max-width: 520px; }
+  }
+
+  @media (max-width: 768px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .service-media { display: none; }
+    .services-grid :global(.service-feature-card) {
+      min-height: auto;
+      padding-bottom: var(--space-6);
+    }
+    .services-grid :global(.service-feature-card__media) { display: none; }
+    .why-grid { flex-direction: column; }
+  }
+
+  @media (max-width: 1024px) {
+    .why-grid { flex-direction: column; gap: var(--space-6); }
+    .why-item { width: min(520px, 100%); }
+    .why-item:nth-child(odd)  { align-self: flex-start; transform: translateX(-16px); }
+    .why-item:nth-child(even) { align-self: flex-end;   transform: translateX(16px); }
+  }
+
+  @media (max-width: 640px) {
+    .why-item:nth-child(odd),
+    .why-item:nth-child(even) {
+      align-self: stretch;
+      transform: none;
+    }
+  }
+</style>

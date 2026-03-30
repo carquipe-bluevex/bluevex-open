@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/layout/Section.astro';
+
+const lastUpdated = '26 de marzo de 2026';
+---
+
+<BaseLayout
+  title="Condiciones de Uso — BlueVex"
+  description="Condiciones generales de uso de los servicios de BlueVex."
+  currentPath="/condiciones-de-uso"
+>
+  <section class="legal-hero bg-white">
+    <div class="container">
+      <p class="overline mt-4">Legal</p>
+      <h1 class="h2 legal-hero__title">Condiciones de Uso</h1>
+      <p class="caption mt-2" style="color:var(--color-gray-500)">Última actualización: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <Section bg="white" size="lg">
+    <div class="legal-content">
+
+      <h2>1. Objeto</h2>
+      <p>Las presentes Condiciones de Uso regulan la relación entre BlueVex (en adelante, "BlueVex" o "el Proveedor") y los usuarios que acceden al sitio web <strong>www.bluevex.tech</strong>, así como las condiciones generales aplicables a la contratación de los servicios ofrecidos por BlueVex.</p>
+      <p>El acceso y uso del Sitio implica la aceptación plena de las presentes Condiciones.</p>
+
+      <h2>2. Servicios ofrecidos</h2>
+      <p>BlueVex presta servicios de tecnología para empresas, entre los que se incluyen:</p>
+      <ul>
+        <li>Soporte tecnológico gestionado (MSP)</li>
+        <li>Proyectos de ingeniería de software, cloud y ciberseguridad</li>
+        <li>CTO as a Service</li>
+        <li>Gestión de licenciamiento de software</li>
+      </ul>
+      <p>Las condiciones específicas de cada servicio se regulan en el contrato particular firmado entre las partes.</p>
+
+      <h2>3. Proceso de contratación</h2>
+      <p>La contratación de los servicios de BlueVex se realiza mediante un proceso que incluye:</p>
+      <ul>
+        <li>Solicitud inicial a través del formulario de contacto o por email.</li>
+        <li>Reunión de diagnóstico para comprender las necesidades del cliente.</li>
+        <li>Elaboración y presentación de una propuesta detallada con alcance, condiciones y precio.</li>
+        <li>Aceptación formal de la propuesta y firma del contrato de servicio correspondiente.</li>
+      </ul>
+      <p>BlueVex se reserva el derecho de rechazar cualquier solicitud de servicio sin necesidad de justificación.</p>
+
+      <h2>4. Precios y facturación</h2>
+      <p>Los precios de los servicios son los acordados en el contrato particular. Salvo indicación contraria:</p>
+      <ul>
+        <li>Los servicios recurrentes (soporte, CTO as a Service, licenciamiento) se facturan mensualmente por adelantado.</li>
+        <li>Los proyectos se facturan según el calendario de hitos acordado en la propuesta.</li>
+        <li>Todos los precios se expresan en euros y están sujetos al IVA vigente.</li>
+      </ul>
+
+      <h2>5. Propiedad intelectual de los entregables</h2>
+      <p>Salvo pacto contrario en el contrato particular:</p>
+      <ul>
+        <li>Los entregables desarrollados específicamente para el cliente son propiedad del cliente una vez abonados en su totalidad.</li>
+        <li>Las herramientas, frameworks, plantillas y componentes reutilizables desarrollados por BlueVex con carácter general siguen siendo propiedad de BlueVex.</li>
+        <li>El software de terceros utilizado está sujeto a las licencias de cada fabricante.</li>
+      </ul>
+
+      <h2>6. Confidencialidad</h2>
+      <p>BlueVex se compromete a mantener la confidencialidad de toda la información del cliente a la que tenga acceso en el marco de la prestación del servicio. Esta obligación se extiende a todos los miembros del equipo y colaboradores de BlueVex.</p>
+
+      <h2>7. Limitación de responsabilidad</h2>
+      <p>La responsabilidad de BlueVex por los daños derivados de la prestación de sus servicios quedará limitada, en todo caso, al importe total facturado al cliente en los tres meses anteriores al hecho generador del daño, salvo en casos de dolo o negligencia grave.</p>
+      <p>BlueVex no será responsable de los daños indirectos, pérdidas de negocio, pérdidas de datos o lucro cesante que pudieran derivarse de la prestación de sus servicios.</p>
+
+      <h2>8. Duración y resolución</h2>
+      <p>Las condiciones de duración y resolución de cada servicio se regulan en el contrato particular correspondiente. Con carácter general:</p>
+      <ul>
+        <li>Los contratos de servicios recurrentes tienen un período mínimo de permanencia de 3 meses.</li>
+        <li>La resolución ordinaria requiere un preaviso de 30 días naturales.</li>
+        <li>Cualquiera de las partes podrá resolver el contrato de forma inmediata en caso de incumplimiento grave por la otra parte.</li>
+      </ul>
+
+      <h2>9. Modificaciones</h2>
+      <p>BlueVex se reserva el derecho de modificar las presentes Condiciones de Uso. Las modificaciones serán comunicadas a los clientes con una antelación mínima de 30 días y entrarán en vigor en la siguiente renovación del contrato.</p>
+
+      <h2>10. Legislación aplicable y resolución de conflictos</h2>
+      <p>Las presentes Condiciones se rigen por la legislación española. Para la resolución de cualquier controversia que no pueda resolverse de mutuo acuerdo, las partes se someten a los Juzgados y Tribunales de España, renunciando expresamente a cualquier otro fuero que pudiera corresponderles.</p>
+
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .legal-hero { padding-block:var(--space-12); }
+  .legal-hero__title { color:var(--color-navy); margin-top:var(--space-3); }
+
+  .legal-content { max-width:740px; }
+  .legal-content h2 { font-size:var(--text-h3); color:var(--color-navy); margin-top:var(--space-10); margin-bottom:var(--space-3); }
+  .legal-content h2:first-child { margin-top:0; }
+  .legal-content p { color:var(--color-gray-600); margin-bottom:var(--space-4); line-height:1.7; }
+  .legal-content ul { margin-left:var(--space-6); margin-bottom:var(--space-4); display:flex; flex-direction:column; gap:var(--space-2); }
+  .legal-content li { color:var(--color-gray-600); line-height:1.6; }
+  .legal-content a { color:var(--color-cyan); text-decoration:none; }
+  .legal-content a:hover { text-decoration:underline; }
+</style>

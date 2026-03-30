@@ -1,0 +1,304 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description?: string;
+  overline?: string;
+  openOnQuery?: string;
+  openOnValue?: string;
+  variant?: 'default' | 'success';
+}
+
+const {
+  id,
+  title,
+  description,
+  overline,
+  openOnQuery,
+  openOnValue = '1',
+  variant = 'default',
+} = Astro.props;
+---
+
+<div
+  class={`modal modal--${variant}`}
+  id={id}
+  data-modal-id={id}
+  data-modal-query={openOnQuery}
+  data-modal-value={openOnValue}
+  aria-hidden="true"
+>
+  <div class="modal__backdrop" data-modal-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby={`${id}-title`}>
+    {variant === 'success' && (
+      <div class="modal__success-icon">
+        <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+    )}
+
+    <button class="modal__close" type="button" aria-label="Cerrar" data-modal-close>
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <div class="modal__content">
+      {overline && <p class="modal__overline">{overline}</p>}
+      <h3 id={`${id}-title`} class="modal__title">{title}</h3>
+      {description && <p class="modal__description">{description}</p>}
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  const modals = document.querySelectorAll('[data-modal-id]');
+
+  modals.forEach((modal) => {
+    const id = modal.getAttribute('data-modal-id');
+    const queryKey = modal.getAttribute('data-modal-query');
+    const queryValue = modal.getAttribute('data-modal-value') || '1';
+
+    const open = () => {
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+    };
+
+    const close = () => {
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+
+      if (queryKey) {
+        const url = new URL(window.location.href);
+        if (url.searchParams.get(queryKey) === queryValue) {
+          url.searchParams.delete(queryKey);
+          window.history.replaceState({}, '', url.toString());
+        }
+      }
+    };
+
+    if (queryKey) {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get(queryKey) === queryValue) {
+        open();
+      }
+    }
+
+    modal.querySelectorAll('[data-modal-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+
+    if (id) {
+      document.querySelectorAll(`[data-modal-open="${id}"]`).forEach((el) => {
+        el.addEventListener('click', open);
+      });
+    }
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.classList.contains('is-open')) {
+        close();
+      }
+    });
+  });
+</script>
+
+<style>
+  .modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-6);
+    z-index: 50;
+    animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .modal.is-open {
+    display: flex;
+  }
+
+  .modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(22, 38, 76, 0.5);
+    backdrop-filter: blur(4px);
+    animation: backdropFadeIn 0.3s ease-out;
+  }
+
+  .modal__panel {
+    position: relative;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(47, 164, 217, 0.1);
+    padding: var(--space-8);
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(22, 38, 76, 0.15), 0 0 1px rgba(47, 164, 217, 0.2);
+    z-index: 1;
+    animation: panelSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .modal--success .modal__panel {
+    border-color: rgba(34, 197, 94, 0.2);
+    box-shadow: 0 20px 60px rgba(34, 197, 94, 0.1), 0 0 1px rgba(47, 164, 217, 0.2);
+  }
+
+  .modal__success-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto var(--space-6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(47, 164, 217, 0.05));
+    border-radius: 50%;
+    color: #22c55e;
+    animation: iconBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+  }
+
+  .modal__success-icon svg {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation: checkmark 0.5s ease-out 0.4s forwards;
+  }
+
+  .modal__content {
+    text-align: center;
+  }
+
+  .modal__overline {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-cyan);
+    margin: 0 0 var(--space-2) 0;
+    animation: fadeInUp 0.5s ease-out 0.1s both;
+  }
+
+  .modal__title {
+    font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+    font-weight: 700;
+    color: var(--color-navy);
+    margin: 0 0 var(--space-3) 0;
+    line-height: 1.3;
+    animation: fadeInUp 0.5s ease-out 0.15s both;
+  }
+
+  .modal__description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+    margin: 0;
+    animation: fadeInUp 0.5s ease-out 0.2s both;
+  }
+
+  .modal__close {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: var(--color-gray-500);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+  }
+
+  .modal__close:hover {
+    background: rgba(22, 38, 76, 0.05);
+    color: var(--color-navy);
+  }
+
+  .modal__close:active {
+    transform: scale(0.95);
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes backdropFadeIn {
+    from {
+      opacity: 0;
+      backdrop-filter: blur(0px);
+    }
+    to {
+      opacity: 1;
+      backdrop-filter: blur(4px);
+    }
+  }
+
+  @keyframes panelSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes iconBounce {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes checkmark {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .modal__panel {
+      padding: var(--space-6);
+      margin: 0 var(--space-4);
+    }
+
+    .modal__title {
+      font-size: 1.375rem;
+    }
+
+    .modal__description {
+      font-size: 0.9rem;
+    }
+  }
+</style>

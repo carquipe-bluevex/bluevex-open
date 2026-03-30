@@ -1,50 +1,183 @@
 ---
+/**
+ * BaseLayout — BlueVex Site Shell
+ * Wraps all pages with <head>, Header, Footer, and global styles.
+ */
+
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import faviconIsotype from '../assets/business_isotype.png';
 import '../styles/global.css';
-import ThemeToggle from '../components/ThemeToggle.astro';
 
 interface Props {
-  title: string;
+  title?: string;
   description?: string;
+  image?: string;   /* OG image URL */
+  noIndex?: boolean;
+  currentPath?: string;
+  transparentHeader?: boolean; /* Header starts transparent over full-bleed hero */
 }
 
 const {
-  title,
-  description = 'BlueVex — Tecnología para empresas que crecen con criterio y ambición.'
+  title = 'BlueVex — Tecnología que marca el rumbo',
+  description = 'Socio tecnológico de referencia para empresas españolas. Continuidad, fiabilidad y evolución de tus sistemas tecnológicos.',
+  image = '/og-default.png',
+  noIndex = false,
+  currentPath = Astro.url.pathname,
+  transparentHeader = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteName = 'BlueVex';
+const siteUrl  = 'https://www.bluevex.tech';
+const fullTitle = title.includes('BlueVex') ? title : `${title} | BlueVex`;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
-    <script is:inline>
-      const theme = localStorage.getItem('theme')
-        ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      if (theme === 'dark') document.documentElement.classList.add('dark');
-    </script>
-
+    <ClientRouter />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    {/* Primary meta */}
+    <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={canonicalURL} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
+    {/* Open Graph */}
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content={`${siteUrl}${currentPath}`} />
+    <meta property="og:title"       content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:locale" content="es_ES" />
+    <meta property="og:image"       content={`${siteUrl}${image}`} />
+    <meta property="og:site_name"   content={siteName} />
+    <meta property="og:locale"      content="es_ES" />
 
-    <title>{title}</title>
+    {/* Twitter / X Card */}
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={`${siteUrl}${image}`} />
+
+    {/* Canonical */}
+    <link rel="canonical" href={`${siteUrl}${currentPath}`} />
+
+    {/* Favicons */}
+    <link rel="icon" type="image/png" href={faviconIsotype.src} />
+    <link rel="apple-touch-icon" href={faviconIsotype.src} />
+
+    {/* Fonts (self-hosted) */}
+    <link
+      rel="preload"
+      href="/fonts/Inter-VariableFont_opsz,wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/HankenGrotesk-VariableFont_wght.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    {/* Theme color */}
+    <meta name="theme-color" content="#16264C" />
+
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="6b02885f-f054-499b-9e62-1ff78b3c8f8d"
+    ></script>
+
+    <slot name="head" />
+
+    {/* Structured data — Organization + LocalBusiness */}
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": ["Organization", "LocalBusiness"],
+      "name": "BlueVex Technologies",
+      "url": siteUrl,
+      "logo": `${siteUrl}/logo.png`,
+      "image": `${siteUrl}/logo.png`,
+      "description": description,
+      "sameAs": [
+        "https://www.linkedin.com/company/bluevex-technologies/"
+      ],
+      "areaServed": {
+        "@type": "Country",
+        "name": "ES"
+      },
+      "foundingDate": "2024",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Carrer dels Maulets, 5",
+        "addressLocality": "L'Eliana",
+        "postalCode": "46183",
+        "addressRegion": "Valencia",
+        "addressCountry": "ES"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "email": "hola@bluevex.tech",
+          "contactType": "customer service",
+          "availableLanguage": ["es", "en"],
+          "areaServed": "ES"
+        },
+        {
+          "@type": "ContactPoint",
+          "email": "dpo@bluevex.tech",
+          "contactType": "Data Protection Officer",
+          "availableLanguage": ["es", "en"]
+        }
+      ],
+      "services": [
+        "Soporte Tecnológico",
+        "Proyectos de Ingeniería",
+        "CTO as a Service",
+        "Licenciamiento"
+      ]
+    })} />
   </head>
-  <body class="min-h-screen scanlines noise grid-bg">
-    <slot />
+
+  <body>
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <Header currentPath={currentPath} transparent={transparentHeader} />
+
+    <main id="main-content" class={!transparentHeader ? 'main--with-header-padding' : ''}>
+      <slot />
+    </main>
+
+    <Footer />
   </body>
 </html>
+
+<style is:global>
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: var(--space-4);
+    z-index: 9999;
+    background: var(--color-navy);
+    color: var(--color-white);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: var(--text-label);
+    text-decoration: none;
+    transition: top var(--transition-fast);
+  }
+
+  .skip-link:focus {
+    top: var(--space-4);
+  }
+
+  /* Padding for main when header is fixed and not transparent */
+  .main--with-header-padding {
+    padding-top: 56px;
+  }
+</style>

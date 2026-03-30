@@ -1,0 +1,138 @@
+/* ============================================================
+   BLUEVEX DESIGN TOKENS
+   Source: Brand Manual v1 (2026)
+   ============================================================ */
+
+:root {
+  /* ----------------------------------------------------------
+     COLOR — BRAND
+  ---------------------------------------------------------- */
+  --color-navy: #16264c; /* Primary. Isotipo, headings, nav backgrounds */
+  --color-cyan: #2fa4d9; /* Accent. CTAs, links, hover, dividers        */
+
+  /* ----------------------------------------------------------
+     COLOR — NEUTRALS  (cold-tinted, derived from Navy)
+  ---------------------------------------------------------- */
+  --color-white: #ffffff;
+  --color-off-white: #f7f9ff; /* Alt background, cards, surfaces             */
+  --color-gray-100: #e9efff; /* Section backgrounds, soft dividers          */
+  --color-gray-400: #a8aabc; /* Borders, dividers, disabled text            */
+  --color-gray-600: #747687; /* Secondary text, captions, metadata          */
+  --color-gray-800: #444655; /* Body text on light backgrounds              */
+  --color-black-tech: #16264c; /* Max hierarchy text (= Navy)                 */
+
+  /* ----------------------------------------------------------
+     COLOR — COMPLEMENTARY (charts / graphics only)
+  ---------------------------------------------------------- */
+  --color-steel-blue: #48527d;
+  --color-soft-blue: #b9c1f3;
+  --color-teal: #308c88;
+  --color-mint: #d9f0ee;
+  --color-cream: #fff7d6;
+
+  /* ----------------------------------------------------------
+     COLOR — SEMANTIC STATES
+  ---------------------------------------------------------- */
+  --color-success: #1d9e75;
+  --color-warning: #d2a517;
+  --color-error: #c0394b;
+  --color-info: #2fa4d9; /* = Cyan                                      */
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — FAMILIES
+  ---------------------------------------------------------- */
+  --font-heading: "Hanken Grotesk", "Arial", sans-serif; /* H1–H3, Display   */
+  --font-body: "Inter", "Arial", sans-serif; /* Body, UI, labels */
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — SCALE (px base = 16)
+  ---------------------------------------------------------- */
+  --text-display-xl: 3.5rem; /* 56px  HK Grotesk 600  lh 1.1  ls -0.02em  */
+  --text-display: 2.75rem; /* 44px  HK Grotesk 600  lh 1.15 ls -0.01em  */
+  --text-h1: 2rem; /* 32px  HK Grotesk 600  lh 1.2  ls -0.01em  */
+  --text-h2: 1.5rem; /* 24px  HK Grotesk 500  lh 1.3              */
+  --text-h3: 1.25rem; /* 20px  HK Grotesk 500  lh 1.35             */
+  --text-h4: 1rem; /* 16px  Inter 600       lh 1.4              */
+  --text-body-l: 1.125rem; /* 18px  Inter 400       lh 1.7              */
+  --text-body: 1rem; /* 16px  Inter 400       lh 1.7              */
+  --text-body-s: 0.875rem; /* 14px  Inter 400       lh 1.6              */
+  --text-label: 0.875rem; /* 14px  Inter 500       lh 1.4              */
+  --text-label-s: 0.75rem; /* 12px  Inter 500       lh 1.4              */
+  --text-caption: 0.75rem; /* 12px  Inter 400       lh 1.5              */
+  --text-overline: 0.6875rem; /* 11px  Inter 500       UPPERCASE ls 0.08em */
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — WEIGHTS (only these 3 allowed)
+  ---------------------------------------------------------- */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  /* ----------------------------------------------------------
+     SPACING (4px base grid)
+  ---------------------------------------------------------- */
+  --space-1: 0.25rem; /*  4px */
+  --space-2: 0.5rem; /*  8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+  --space-32: 8rem; /* 128px */
+
+  /* ----------------------------------------------------------
+     BORDER RADIUS
+  ---------------------------------------------------------- */
+  --radius-sm: 0.25rem; /*  4px */
+  --radius-md: 0.5rem; /*  8px */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-full: 9999px;
+
+  /* ----------------------------------------------------------
+     BORDER
+  ---------------------------------------------------------- */
+  --border-thin: 1px solid var(--color-gray-100);
+  --border-base: 1px solid var(--color-gray-400);
+  --border-strong: 1px solid var(--color-navy);
+  --border-accent: 1px solid var(--color-cyan);
+
+  /* ----------------------------------------------------------
+     SHADOWS
+  ---------------------------------------------------------- */
+  --shadow-sm:
+    0 1px 3px rgba(22, 38, 76, 0.06), 0 1px 2px rgba(22, 38, 76, 0.04);
+  --shadow-md:
+    0 4px 12px rgba(22, 38, 76, 0.08), 0 2px 4px rgba(22, 38, 76, 0.05);
+  --shadow-lg:
+    0 8px 24px rgba(22, 38, 76, 0.1), 0 4px 8px rgba(22, 38, 76, 0.06);
+
+  /* ----------------------------------------------------------
+     LAYOUT
+  ---------------------------------------------------------- */
+  --container-max: 1200px;
+  --container-text: 720px;
+  --section-padding: var(--space-20) var(--space-6);
+
+  /* ----------------------------------------------------------
+     TRANSITIONS
+  ---------------------------------------------------------- */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+
+  /* ----------------------------------------------------------
+     Z-INDEX
+  ---------------------------------------------------------- */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-overlay: 100;
+  --z-modal: 200;
+  --z-nav: 300;
+}

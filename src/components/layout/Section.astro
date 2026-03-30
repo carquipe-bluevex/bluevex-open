@@ -1,0 +1,93 @@
+---
+/**
+ * Section — BlueVex Page Section Wrapper
+ * Handles spacing, background variants, and optional header block.
+ */
+
+interface Props {
+  id?: string;
+  bg?: 'white' | 'off-white' | 'gray-100' | 'navy';
+  size?: 'sm' | 'md' | 'lg';
+  /** Overline label above heading (cyan uppercase) */
+  overline?: string;
+  heading?: string;
+  subheading?: string;
+  centered?: boolean;
+  class?: string;
+}
+
+const {
+  id,
+  bg = 'white',
+  size = 'md',
+  overline,
+  heading,
+  subheading,
+  centered = false,
+  class: className = '',
+} = Astro.props;
+
+const bgMap: Record<string, string> = {
+  'white':     'bg-white',
+  'off-white': 'bg-off-white',
+  'gray-100':  'bg-gray-100',
+  'navy':      'bg-navy',
+};
+
+const sizeMap: Record<string, string> = {
+  sm: 'section--sm',
+  md: 'section',
+  lg: 'section--lg',
+};
+
+const classes = [
+  sizeMap[size],
+  bgMap[bg],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<section id={id} class={classes}>
+  <div class="container">
+
+    {(overline || heading || subheading) && (
+      <div class={`section-header ${centered ? 'section-header--centered' : ''}`}>
+        {overline && <p class="overline">{overline}</p>}
+        {heading && <h2 class="section-header__heading">{heading}</h2>}
+        {subheading && <p class="section-header__sub body-l">{subheading}</p>}
+      </div>
+    )}
+
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section-header {
+    max-width: 640px;
+    margin-bottom: var(--space-12);
+  }
+
+  .section-header--centered {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .section-header .overline {
+    margin-bottom: var(--space-3);
+    display: block;
+  }
+
+  .section-header__heading {
+    margin-bottom: var(--space-4);
+  }
+
+  .section-header__sub {
+    color: var(--color-gray-600);
+  }
+
+  /* On navy bg the sub text should be lighter */
+  .bg-navy .section-header__sub {
+    color: var(--color-gray-400);
+  }
+</style>

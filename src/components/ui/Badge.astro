@@ -1,0 +1,89 @@
+---
+/**
+ * Badge — BlueVex UI Component
+ * For labels, tags, status indicators, service chips
+ *
+ * Variants: default | accent | success | warning | error | info | outline
+ */
+
+interface Props {
+  variant?: 'default' | 'accent' | 'success' | 'warning' | 'error' | 'info' | 'outline';
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  class: className = '',
+} = Astro.props;
+
+const classes = ['badge', `badge--${variant}`, className].filter(Boolean).join(' ');
+---
+
+<span class={classes}>
+  <slot />
+</span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-family: var(--font-body);
+    font-size: var(--text-label-s);
+    font-weight: var(--weight-medium);
+    line-height: 1;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  /* Default — gray */
+  .badge--default {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-800);
+    border-color: var(--color-gray-100);
+  }
+
+  /* Accent — Cyan */
+  .badge--accent {
+    background-color: rgba(47, 164, 217, 0.12);
+    color: var(--color-cyan);
+    border-color: rgba(47, 164, 217, 0.25);
+  }
+
+  /* Success */
+  .badge--success {
+    background-color: rgba(29, 158, 117, 0.1);
+    color: var(--color-success);
+    border-color: rgba(29, 158, 117, 0.2);
+  }
+
+  /* Warning */
+  .badge--warning {
+    background-color: rgba(210, 165, 23, 0.1);
+    color: var(--color-warning);
+    border-color: rgba(210, 165, 23, 0.2);
+  }
+
+  /* Error */
+  .badge--error {
+    background-color: rgba(192, 57, 75, 0.1);
+    color: var(--color-error);
+    border-color: rgba(192, 57, 75, 0.2);
+  }
+
+  /* Info (= Cyan semantic) */
+  .badge--info {
+    background-color: rgba(47, 164, 217, 0.1);
+    color: var(--color-info);
+    border-color: rgba(47, 164, 217, 0.2);
+  }
+
+  /* Outline — Navy border */
+  .badge--outline {
+    background-color: transparent;
+    color: var(--color-navy);
+    border-color: var(--color-navy);
+  }
+</style>

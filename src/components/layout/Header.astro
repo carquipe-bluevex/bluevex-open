@@ -1,0 +1,417 @@
+---
+/**
+ * Header — BlueVex Site Navigation
+ * Fixed top nav with two states:
+ * 1. transparent (on pages with hero) - superposes over dark background
+ * 2. floating (on scroll) - modal-like with margins, rounded corners, shadow
+ */
+
+import Button from '../ui/Button.astro';
+import logoHorizontal from '../../assets/business_logo_horizontal.png';
+import logoHorizontalNegative from '../../assets/business_logo_horizontal_negative.png';
+
+interface Props {
+  currentPath?: string;
+  transparent?: boolean; // Whether to start transparent (only on hero pages)
+}
+
+const { currentPath = '/', transparent = false } = Astro.props;
+
+const navLinks = [
+  { label: 'Servicios', href: '/servicios' },
+  { label: 'Nosotros',  href: '/nosotros' },
+  { label: 'Talento',   href: '/talento' },
+];
+---
+
+<header
+  class={`header ${transparent ? 'header--transparent' : ''}`}
+  id="site-header"
+  transition:persist
+>
+  <div class="header__wrapper">
+    <div class="container header__inner">
+
+    {/* Logo with theme switching */}
+    <a href="/" class="logo-link" aria-label="BlueVex — Inicio">
+      <img
+        src={logoHorizontalNegative.src}
+        alt="BlueVex"
+        height="64"
+        class="logo-img logo-dark"
+      />
+      <img
+        src={logoHorizontal.src}
+        alt="BlueVex"
+        height="64"
+        class="logo-img logo-light"
+      />
+    </a>
+
+    <nav class="header__nav" aria-label="Navegación principal">
+      <ul class="header__nav-list" role="list">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`header__nav-link ${currentPath.startsWith(link.href) ? 'header__nav-link--active' : ''}`}
+              aria-current={currentPath.startsWith(link.href) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <Button href="/contacto" variant="primary" size="sm">
+        Hablemos
+      </Button>
+    </div>
+
+    <button
+      class="header__menu-btn"
+      id="menu-toggle"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="header__menu-bar"></span>
+      <span class="header__menu-bar"></span>
+      <span class="header__menu-bar"></span>
+    </button>
+    </div>
+  </div>
+
+  {/* Mobile menu drawer */}
+  <div class="header__mobile" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Menú móvil">
+      <ul class="header__mobile-list" role="list">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`header__mobile-link ${currentPath.startsWith(link.href) ? 'header__mobile-link--active' : ''}`}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+        <li>
+          <Button href="/contacto" variant="primary" fullWidth>
+            Hablemos
+          </Button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* ---- Base header: fixed, transparent ---- */
+  .header {
+    position: fixed;
+    top: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    z-index: var(--z-nav);
+    background: transparent;
+    backdrop-filter: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius-xl);
+    box-shadow: none;
+    transition: top var(--transition-slow), left var(--transition-slow), right var(--transition-slow),
+                border-radius var(--transition-slow), box-shadow var(--transition-slow),
+                background-color var(--transition-slow), border-color var(--transition-slow),
+                backdrop-filter var(--transition-slow);
+  }
+
+  /* ---- Header wrapper ---- */
+  .header__wrapper {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* ---- Transparent state: subtle text ---- */
+  .header--transparent .header__nav-link {
+    color: var(--color-gray-600);
+  }
+
+  .header--transparent .header__nav-link:hover {
+    color: var(--color-navy);
+  }
+
+  .header--transparent .header__nav-link--active {
+    color: var(--color-navy);
+  }
+
+  .header--transparent .header__menu-bar {
+    background-color: var(--color-navy);
+  }
+
+  /* ---- Floating state: activated on scroll ---- */
+  .header.floating {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow: 0 8px 14px -4px rgba(15, 23, 42, 0.12), 0 4px 8px -6px rgba(15, 23, 42, 0.12);
+  }
+
+  .header.floating.header--transparent {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  .header.floating .header__nav-link {
+    color: var(--color-gray-800);
+  }
+
+  .header.floating .header__nav-link:hover {
+    color: var(--color-navy);
+  }
+
+  .header.floating .header__menu-bar {
+    background-color: var(--color-navy);
+  }
+
+  /* ---- Logo container ---- */
+  .logo-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .logo-img {
+    display: block;
+    width: auto;
+    height: 64px;
+    position: absolute;
+    transition: opacity var(--transition-slow);
+  }
+
+  .logo-dark {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .logo-light {
+    opacity: 1;
+    position: relative;
+  }
+
+  /* ---- Inner container ---- */
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    height: 96px;
+    padding: 0 var(--space-6);
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    transition: height var(--transition-slow), padding var(--transition-slow), max-width var(--transition-slow);
+  }
+
+  .header.floating .header__inner {
+    height: 64px;
+    padding: 0 var(--space-6);
+    max-width: 1200px;
+  }
+
+  .header.floating .logo-img {
+    height: 52px;
+  }
+
+  /* ---- Nav ---- */
+  .header__nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header__nav-list {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .header__nav-link {
+    font-family: var(--font-body);
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    padding: var(--space-2) 0;
+    color: var(--color-gray-600);
+    position: relative;
+    transition: color var(--transition-fast);
+  }
+
+  .header__nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transition: width var(--transition-fast);
+  }
+
+  .header__nav-link:hover::after {
+    width: 100%;
+  }
+
+  .header__nav-link--active {
+    font-weight: var(--weight-semibold);
+    color: var(--color-navy);
+  }
+
+  /* ---- Actions ---- */
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  /* ---- Mobile toggle ---- */
+  .header__menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2);
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .header__menu-bar {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-navy);
+    transition: transform var(--transition-fast), opacity var(--transition-fast),
+                background-color var(--transition-slow);
+  }
+
+  /* ---- Mobile menu ---- */
+  .header__mobile {
+    display: none;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--transition-base);
+  }
+
+  .header.floating .header__mobile {
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  }
+
+  .header__mobile.open {
+    max-height: 400px;
+  }
+
+  .header__mobile-list {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4) var(--space-6);
+    gap: var(--space-3);
+  }
+
+  .header__mobile-link {
+    display: block;
+    font-size: var(--text-body);
+    font-weight: var(--weight-medium);
+    color: var(--color-gray-800);
+    text-decoration: none;
+    padding: var(--space-3) var(--space-2);
+    border-radius: var(--radius-md);
+  }
+
+  .header__mobile-link--active {
+    color: var(--color-navy);
+    font-weight: var(--weight-semibold);
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 768px) {
+    .header__inner {
+      padding: 0 var(--space-4);
+      gap: var(--space-4);
+    }
+
+    .header__nav,
+    .header__actions {
+      display: none;
+    }
+
+    .header__menu-btn {
+      display: flex;
+      margin-left: auto;
+    }
+
+    .header__mobile {
+      display: block;
+    }
+
+    .header {
+      left: var(--space-3);
+      right: var(--space-3);
+    }
+
+    .header.floating .header__inner {
+      padding: 0 var(--space-4);
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu   = document.getElementById('mobile-menu');
+  const header = document.getElementById('site-header');
+
+  const SCROLL_THRESHOLD = 10;
+
+  const closeMenu = () => {
+    menu?.classList.remove('open');
+    toggle?.setAttribute('aria-expanded', 'false');
+    menu?.setAttribute('aria-hidden', 'true');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.contains('open');
+    menu?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    menu?.setAttribute('aria-hidden', String(isOpen));
+  });
+
+  // Cerrar menú al hacer click fuera
+  document.addEventListener('click', (e) => {
+    const isClickInsideHeader = header?.contains(e.target as Node);
+    const isMenuOpen = menu?.classList.contains('open');
+
+    if (!isClickInsideHeader && isMenuOpen) {
+      closeMenu();
+    }
+  });
+
+  const updateHeaderState = () => {
+    const scrolled = window.scrollY > SCROLL_THRESHOLD;
+
+    header?.classList.toggle('floating', scrolled);
+
+    if (header?.classList.contains('header--transparent')) {
+      header?.classList.toggle('header--transparent', !scrolled);
+    }
+  };
+
+  updateHeaderState();
+  window.addEventListener('scroll', updateHeaderState);
+</script>

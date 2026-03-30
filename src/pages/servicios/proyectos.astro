@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import EmailCta from '../../components/ui/EmailCta.astro';
+import Card from '../../components/ui/Card.astro';
+import Section from '../../components/layout/Section.astro';
+import Icon from '../../components/shared/Icon.astro';
+
+const areas = [
+  { icon: 'cloud-arrow-up', title: 'Cloud & DevOps', desc: 'Migración, configuración y optimización de infraestructura cloud. CI/CD, pipelines y automatización de despliegues.' },
+  { icon: 'code',           title: 'Desarrollo Software', desc: 'Software a medida construido con contexto real del negocio. Sin código de relleno, sin funcionalidades innecesarias.' },
+  { icon: 'monitor',        title: 'Integración de plataformas', desc: 'Conexión y configuración de herramientas existentes. Eliminamos silos de datos y flujos manuales entre sistemas.' },
+  { icon: 'tree-structure', title: 'Arquitectura y refactorización', desc: 'Modernización de sistemas heredados. Reducción de deuda técnica y preparación para escalar con control.' },
+  { icon: 'gear',   title: 'Automatización de Procesos', desc: 'RPA, flujos de trabajo automatizados y optimización de procesos manuales. Reduce errores y acelera operaciones.' },
+  { icon: 'path',           title: 'Desarrollo Web', desc: 'Webs corporativas, plataformas y aplicaciones web con foco en rendimiento, accesibilidad y mantenibilidad.' },
+];
+---
+
+<BaseLayout
+  title="Proyectos — BlueVex"
+  description="Ingeniería de software con contexto estratégico. Cloud, DevOps, desarrollo a medida e integración de plataformas con alcance cerrado y presupuesto fijo."
+  currentPath="/servicios/proyectos"
+>
+  <section class="page-hero bg-white">
+    <div class="container">
+      <a href="/servicios" class="breadcrumb caption">← Servicios</a>
+      <p class="overline mt-4">Proyectos</p>
+      <h1 class="display page-hero__title">Ingeniería con criterio.<br />No solo horas.</h1>
+      <p class="body-l page-hero__sub">Los proyectos no se plantean como una venta oportunista. Son la consecuencia natural del conocimiento profundo del cliente y su contexto tecnológico.</p>
+    </div>
+  </section>
+
+  <Section bg="white" overline="Áreas de trabajo" heading="Lo que ejecutamos" size="lg">
+    <div class="grid-3">
+      {areas.map(a => (
+        <Card variant="ghost">
+          <div class="area-icon">
+            <Icon name={a.icon} size={24} color="var(--color-navy)" weight="light" />
+          </div>
+          <h4 class="mt-4">{a.title}</h4>
+          <p class="body-s mt-2" style="color:var(--color-gray-600)">{a.desc}</p>
+        </Card>
+      ))}
+    </div>
+  </Section>
+
+  <Section bg="off-white" overline="Cómo trabajamos" heading="Un proyecto, no un presupuesto" size="md">
+    <div class="process-steps">
+      {[
+        { num: '01', title: 'Diagnóstico previo', desc: 'Antes de proponer, entendemos. Analizamos el contexto técnico, el problema real y el impacto en el negocio. No empezamos a contar horas antes de entender qué hay que resolver.' },
+        { num: '02', title: 'Propuesta con alcance cerrado', desc: 'Definimos entregables, fases, criterios de aceptación y condiciones de cambio de alcance. Sin sorpresas en la factura final.' },
+        { num: '03', title: 'Ejecución con visibilidad', desc: 'Actualizaciones regulares, decisiones documentadas y acceso al estado del proyecto en todo momento. Sabemos lo que hay y lo decimos.' },
+        { num: '04', title: 'Entrega y transferencia de conocimiento', desc: 'El proyecto termina cuando el cliente puede operar y evolucionar lo que hemos construido de forma independiente.' },
+      ].map(s => (
+        <div class="process-step">
+          <div class="process-step__num">{s.num}</div>
+          <div class="process-step__content">
+            <h4>{s.title}</h4>
+            <p class="body-s mt-2" style="color:var(--color-gray-600)">{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section bg="navy" size="md" centered>
+    <h2 style="color:var(--color-white)">¿Tienes un proyecto en mente?</h2>
+    <p class="body-l mt-4" style="color:var(--color-gray-400); max-width:480px; margin-inline:auto;">Cuéntanos qué necesitas resolver. En 48 horas te decimos si podemos ayudarte y cómo.</p>
+    <div class="mt-8"><EmailCta size="lg" variant="dark" buttonLabel="Hablemos del proyecto" /></div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .page-hero { padding-block:var(--space-16); }
+  .page-hero__title { color:var(--color-navy); margin-top:var(--space-4); }
+  .page-hero__sub   { color:var(--color-gray-600); max-width:580px; margin-top:var(--space-5); }
+  .breadcrumb { color:var(--color-gray-600); text-decoration:none; }
+  .breadcrumb:hover { color:var(--color-navy); }
+  .area-icon { width:56px; height:56px; background:var(--color-white); border-radius:var(--radius-lg); display:flex; align-items:center; justify-content:center; border:var(--border-thin); }
+
+  .process-steps { display:flex; flex-direction:column; gap:var(--space-1); }
+  .process-step {
+    display:grid;
+    grid-template-columns:80px 1fr;
+    gap:var(--space-6);
+    padding:var(--space-8);
+    border-radius:var(--radius-lg);
+    background:var(--color-white);
+    border:var(--border-thin);
+    align-items:start;
+  }
+  .process-step__num { font-family:var(--font-mono); font-size:2rem; font-weight:var(--weight-semibold); color:var(--color-gray-100); line-height:1; }
+
+  @media (max-width:640px) { .process-step { grid-template-columns:1fr; } }
+</style>

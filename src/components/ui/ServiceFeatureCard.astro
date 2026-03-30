@@ -1,0 +1,126 @@
+---
+import Icon from '../shared/Icon.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  linkLabel?: string;
+  tone?: 'navy' | 'cyan' | 'steel' | 'teal';
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  href,
+  linkLabel = 'Ver servicio',
+  tone = 'cyan',
+  class: className = '',
+} = Astro.props;
+
+const classes = [
+  'service-feature-card',
+  `service-feature-card--${tone}`,
+  className,
+].filter(Boolean).join(' ');
+---
+
+<a href={href} class={classes} aria-label={`${title} - ${linkLabel}`}>
+  <div class="service-feature-card__content">
+    <h3 class="service-feature-card__title">{title}</h3>
+    <p class="service-feature-card__desc">{description}</p>
+    <span class="service-feature-card__link">
+      {linkLabel}
+      <Icon name="arrow-right" size={16} color="currentColor" />
+    </span>
+  </div>
+  <div class="service-feature-card__media">
+    <slot />
+  </div>
+</a>
+
+<style>
+  .service-feature-card {
+    --service-accent: var(--color-cyan);
+    --service-surface: var(--color-off-white);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    background: var(--service-surface);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6) var(--space-6) 0;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    min-height: 360px;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+  }
+
+  .service-feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+
+  .service-feature-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+  }
+
+  .service-feature-card__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    color: var(--color-navy);
+  }
+
+  .service-feature-card__desc {
+    font-size: var(--text-body-s);
+    color: var(--color-gray-600);
+    line-height: 1.6;
+  }
+
+  .service-feature-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-cyan);
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    margin-top: auto;
+  }
+
+  .service-feature-card__media {
+    position: relative;
+    flex: 1;
+    background: transparent;
+    overflow: hidden;
+    min-height: 170px;
+    margin: var(--space-6) calc(-1 * var(--space-6)) 0;
+    border-radius: 0;
+  }
+
+  .service-feature-card--navy {
+    --service-accent: var(--color-navy);
+  }
+
+  .service-feature-card--cyan {
+    --service-accent: var(--color-cyan);
+  }
+
+  .service-feature-card--steel {
+    --service-accent: var(--color-steel-blue);
+  }
+
+  .service-feature-card--teal {
+    --service-accent: var(--color-teal);
+  }
+
+  @media (max-width: 768px) {
+    .service-feature-card {
+      min-height: 320px;
+    }
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/layout/Section.astro';
+
+const lastUpdated = '26 de marzo de 2026';
+---
+
+<BaseLayout
+  title="Política de Cookies — BlueVex"
+  description="Información sobre el uso de cookies en el sitio web de BlueVex."
+  currentPath="/cookies"
+>
+  <section class="legal-hero bg-white">
+    <div class="container">
+      <p class="overline mt-4">Legal</p>
+      <h1 class="h2 legal-hero__title">Política de Cookies</h1>
+      <p class="caption mt-2" style="color:var(--color-gray-500)">Última actualización: {lastUpdated}</p>
+    </div>
+  </section>
+
+  <Section bg="white" size="lg">
+    <div class="legal-content">
+
+      <h2>1. ¿Qué son las cookies?</h2>
+      <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Sirven para que el sitio recuerde tus preferencias, analice cómo lo usas o muestre contenido relevante.</p>
+
+      <h2>2. Tipos de cookies que utilizamos</h2>
+
+      <h3>Cookies técnicas o esenciales</h3>
+      <p>Son imprescindibles para el funcionamiento del sitio. Sin ellas, no podríamos ofrecerte determinadas funcionalidades. No requieren tu consentimiento.</p>
+      <div class="cookie-table">
+        <div class="cookie-row cookie-row--header">
+          <span>Nombre</span><span>Proveedor</span><span>Finalidad</span><span>Duración</span>
+        </div>
+        <div class="cookie-row">
+          <span><code>cookie_consent</code></span><span>BlueVex</span><span>Almacena las preferencias de cookies del usuario</span><span>1 año</span>
+        </div>
+      </div>
+
+      <h3>Cookies analíticas</h3>
+      <p>Nos permiten analizar el uso del sitio web de forma anónima para mejorar su funcionamiento y contenidos. Solo se activan si das tu consentimiento.</p>
+      <div class="cookie-table">
+        <div class="cookie-row cookie-row--header">
+          <span>Nombre</span><span>Proveedor</span><span>Finalidad</span><span>Duración</span>
+        </div>
+        <div class="cookie-row">
+          <span><code>_ga</code></span><span>Google Analytics</span><span>Distingue usuarios únicos</span><span>2 años</span>
+        </div>
+        <div class="cookie-row">
+          <span><code>_ga_*</code></span><span>Google Analytics</span><span>Mantiene el estado de la sesión</span><span>2 años</span>
+        </div>
+      </div>
+
+      <h2>3. Cómo gestionar tus preferencias</h2>
+      <p>Puedes gestionar tus preferencias de cookies en cualquier momento a través del banner de cookies que aparece al visitar nuestro sitio. También puedes configurar tu navegador para bloquear o eliminar cookies:</p>
+      <ul>
+        <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Google Chrome</a></li>
+        <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener">Mozilla Firefox</a></li>
+        <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+        <li><a href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener">Microsoft Edge</a></li>
+      </ul>
+      <p>Ten en cuenta que bloquear las cookies técnicas puede afectar al funcionamiento del sitio.</p>
+
+      <h2>4. Cookies de terceros</h2>
+      <p>Algunas cookies son instaladas por servicios de terceros que aparecen en nuestras páginas (como Google Analytics). Estos terceros tienen sus propias políticas de privacidad, que te recomendamos consultar.</p>
+
+      <h2>5. Más información</h2>
+      <p>Para cualquier consulta sobre el uso de cookies, puedes contactarnos en <a href="mailto:dpo@bluevex.tech">dpo@bluevex.tech</a> o consultar la <a href="/privacidad">Política de Privacidad</a>.</p>
+
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .legal-hero { padding-block:var(--space-12); }
+  .legal-hero__title { color:var(--color-navy); margin-top:var(--space-3); }
+
+  .legal-content { max-width:740px; }
+  .legal-content h2 { font-size:var(--text-h3); color:var(--color-navy); margin-top:var(--space-10); margin-bottom:var(--space-3); }
+  .legal-content h2:first-child { margin-top:0; }
+  .legal-content h3 { font-size:var(--text-h4); color:var(--color-navy); margin-top:var(--space-6); margin-bottom:var(--space-3); }
+  .legal-content p { color:var(--color-gray-600); margin-bottom:var(--space-4); line-height:1.7; }
+  .legal-content ul { margin-left:var(--space-6); margin-bottom:var(--space-4); display:flex; flex-direction:column; gap:var(--space-2); }
+  .legal-content li { color:var(--color-gray-600); line-height:1.6; }
+  .legal-content a { color:var(--color-cyan); text-decoration:none; }
+  .legal-content a:hover { text-decoration:underline; }
+  .legal-content code { font-family:var(--font-mono); font-size:0.85em; background:var(--color-off-white); padding:2px 6px; border-radius:var(--radius-sm); }
+
+  .cookie-table { border:var(--border-thin); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:var(--space-6); font-size:var(--text-body-s); }
+  .cookie-row { display:grid; grid-template-columns:1.5fr 1.2fr 2fr 1fr; gap:var(--space-4); padding:var(--space-3) var(--space-4); border-bottom:var(--border-thin); color:var(--color-gray-600); }
+  .cookie-row:last-child { border-bottom:none; }
+  .cookie-row--header { background:var(--color-off-white); font-weight:var(--weight-semibold); color:var(--color-navy); }
+
+  @media (max-width:640px) { .cookie-row { grid-template-columns:1fr 1fr; } }
+</style>
