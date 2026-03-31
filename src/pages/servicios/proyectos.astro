@@ -50,7 +50,7 @@ const areas = [
         { num: '01', title: 'Diagnóstico previo', desc: 'Antes de proponer, entendemos. Analizamos el contexto técnico, el problema real y el impacto en el negocio. No empezamos a contar horas antes de entender qué hay que resolver.' },
         { num: '02', title: 'Propuesta con alcance cerrado', desc: 'Definimos entregables, fases, criterios de aceptación y condiciones de cambio de alcance. Sin sorpresas en la factura final.' },
         { num: '03', title: 'Ejecución con visibilidad', desc: 'Actualizaciones regulares, decisiones documentadas y acceso al estado del proyecto en todo momento. Sabemos lo que hay y lo decimos.' },
-        { num: '04', title: 'Entrega y transferencia de conocimiento', desc: 'El proyecto termina cuando el cliente puede operar y evolucionar lo que hemos construido de forma independiente.' },
+        { num: '04', title: 'Entrega y transferencia de conocimiento', desc: 'El proyecto termina cuando el cliente puede operar lo que hemos construido de forma independiente.' },
       ].map(s => (
         <div class="process-step">
           <div class="process-step__num">{s.num}</div>
@@ -64,9 +64,11 @@ const areas = [
   </Section>
 
   <Section bg="navy" size="md" centered>
-    <h2 style="color:var(--color-white)">¿Tienes un proyecto en mente?</h2>
-    <p class="body-l mt-4" style="color:var(--color-gray-400); max-width:480px; margin-inline:auto;">Cuéntanos qué necesitas resolver. En 48 horas te decimos si podemos ayudarte y cómo.</p>
-    <div class="mt-8"><EmailCta size="lg" variant="dark" buttonLabel="Hablemos del proyecto" /></div>
+    <div class="prefooter-cta">
+      <h2 class="prefooter-cta__title">¿Tienes un proyecto en mente?</h2>
+      <p class="body-l prefooter-cta__copy">Cuéntanos qué necesitas resolver. En 48 horas te decimos si podemos ayudarte y cómo.</p>
+      <div class="prefooter-cta__actions"><EmailCta size="lg" variant="dark" buttonLabel="Hablemos del proyecto" /></div>
+    </div>
   </Section>
 </BaseLayout>
 
@@ -90,6 +92,29 @@ const areas = [
     align-items:start;
   }
   .process-step__num { font-family:var(--font-mono); font-size:2rem; font-weight:var(--weight-semibold); color:var(--color-gray-100); line-height:1; }
+
+  .prefooter-cta {
+    max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .prefooter-cta__title {
+    color: var(--color-white);
+  }
+
+  .prefooter-cta__copy {
+    color: var(--color-gray-400);
+    margin-top: var(--space-4);
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .prefooter-cta__actions {
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: center;
+  }
 
   @media (max-width:640px) { .process-step { grid-template-columns:1fr; } }
 </style>

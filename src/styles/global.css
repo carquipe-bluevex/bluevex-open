@@ -188,6 +188,12 @@ button {
   gap: var(--space-6);
 }
 
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+}
+
 /* ============================================================
    SPACING HELPERS
    ============================================================ */
@@ -272,6 +278,10 @@ button {
     grid-template-columns: 1fr;
   }
 
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
   .display-xl {
     font-size: 2.5rem;
   }
@@ -291,5 +301,11 @@ button {
 
   .container {
     padding-inline: var(--space-4);
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }

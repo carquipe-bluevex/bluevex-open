@@ -46,7 +46,7 @@ const values = [
       <div class="origin-text">
         <p class="overline" style="color:var(--color-cyan)">Por qué existe BlueVex</p>
         <h2 class="mt-3">Nacimos de una observación incómoda.</h2>
-        <p class="body-l mt-6" style="color:var(--color-gray-600)">Las empresas medianas y pequeñas se enfrentan a decisiones tecnológicas complejas sin tener acceso a criterio técnico independiente. Sus proveedores tienen intereses propios. Sus empleados no siempre tienen visión estratégica. Y los consultores generalistas no entienden la tecnología con suficiente profundidad.</p>
+        <p class="body-l mt-6" style="color:var(--color-gray-600)">Las empresas pequeñas y medianas se enfrentan a decisiones tecnológicas complejas sin tener acceso a criterio técnico independiente. Sus proveedores tienen intereses propios. Sus empleados no siempre tienen visión estratégica. Y los consultores generalistas no entienden la tecnología con suficiente profundidad.</p>
         <p class="body-l mt-4" style="color:var(--color-gray-600)">BlueVex existe para ser esa figura que falta: un responsable tecnológico que entiende el negocio, domina la tecnología y no tiene incentivos para recomendarte lo que no necesitas.</p>
         <p class="body-l mt-4" style="color:var(--color-gray-600)">Trabajamos con un número limitado de clientes de forma intencionada. Más clientes significaría menos profundidad, y la profundidad es exactamente lo que nos diferencia.</p>
       </div>
@@ -61,10 +61,10 @@ const values = [
         </div>
         <div class="stat-card">
           <div class="stat-card__number">4</div>
-          <div class="stat-card__label body-s">Líneas de servicio</div>
+          <div class="stat-card__label body-s">Líneas de<br />servicio</div>
         </div>
         <div class="stat-card">
-          <div class="stat-card__number">ES</div>
+          <div class="stat-card__number stat-card__number--flag" aria-label="España">🇪🇸</div>
           <div class="stat-card__label body-s">Alcance geográfico</div>
         </div>
       </div>
@@ -100,9 +100,11 @@ const values = [
 
   <!-- CTA -->
   <Section bg="navy" size="md" centered>
-    <h2 style="color:var(--color-white)">¿Quieres saber si encajamos?</h2>
-    <p class="body-l mt-4" style="color:var(--color-gray-400); max-width:480px; margin-inline:auto;">Una conversación de 30 minutos es suficiente para saber si podemos ayudarte y si tiene sentido trabajar juntos.</p>
-    <div class="mt-8"><EmailCta size="lg" variant="dark" /></div>
+    <div class="prefooter-cta">
+      <h2 class="prefooter-cta__title">¿Quieres saber si encajamos?</h2>
+      <p class="body-l prefooter-cta__copy">Una conversación de 30 minutos es suficiente para saber si podemos ayudarte y si tiene sentido trabajar juntos.</p>
+      <div class="prefooter-cta__actions"><EmailCta size="lg" variant="dark" /></div>
+    </div>
   </Section>
 </BaseLayout>
 
@@ -122,6 +124,11 @@ const values = [
     text-align:center;
   }
   .stat-card__number { font-family:var(--font-display); font-size:2.5rem; font-weight:var(--weight-semibold); color:var(--color-navy); line-height:1; }
+  .stat-card__number--flag {
+    font-size: 2.9rem;
+    line-height: 1;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  }
   .stat-card__label  { color:var(--color-gray-600); margin-top:var(--space-2); }
 
   :global(.bg-navy .origin-text h2) { color: var(--color-white); }
@@ -141,6 +148,29 @@ const values = [
   .inspiration-text h2 { color:var(--color-white); }
   .inspiration-image { display:flex; align-items:center; justify-content:center; }
   .inspiration-image img { width:100%; height:auto; display:block; }
+
+  .prefooter-cta {
+    max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .prefooter-cta__title {
+    color: var(--color-white);
+  }
+
+  .prefooter-cta__copy {
+    color: var(--color-gray-400);
+    margin-top: var(--space-4);
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .prefooter-cta__actions {
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: center;
+  }
 
   .model-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-4); }
 
@@ -167,6 +197,10 @@ const values = [
 
     .stat-card__number {
       font-size: 2rem;
+    }
+
+    .stat-card__number--flag {
+      font-size: 2.4rem;
     }
 
     .inspiration-grid { grid-template-columns:1fr; }

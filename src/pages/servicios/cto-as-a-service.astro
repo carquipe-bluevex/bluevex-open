@@ -100,10 +100,9 @@ const packages = [
         <div class={`pkg-card ${p.highlighted ? 'pkg-card--highlight' : ''}`}>
           {p.highlighted && <div class="pkg-badge">Más contratado</div>}
           <h3 class="pkg-name">{p.name}</h3>
-          <p class="pkg-target caption">{p.target}</p>
           <div class="pkg-hours">
             <span class="label">{p.hours}</span>
-            <span class="caption" style="color:var(--color-gray-600)"> · {p.meeting}</span>
+            <span class="caption pkg-meeting">{p.meeting}</span>
           </div>
           <ul class="pkg-list">
             {p.includes.map(item => (
@@ -122,9 +121,11 @@ const packages = [
   </Section>
 
   <Section bg="navy" size="md" centered>
-    <h2 style="color:var(--color-white)">¿No tienes CTO pero necesitas uno?</h2>
-    <p class="body-l mt-4" style="color:var(--color-gray-400); max-width:480px; margin-inline:auto;">Cuéntanos dónde estás tecnológicamente. Te decimos qué nivel de acompañamiento tiene sentido para tu empresa ahora mismo.</p>
-    <div class="mt-8"><EmailCta size="lg" variant="dark" /></div>
+    <div class="prefooter-cta">
+      <h2 class="prefooter-cta__title">¿No tienes CTO pero necesitas uno?</h2>
+      <p class="body-l prefooter-cta__copy">Cuéntanos dónde estás tecnológicamente. Te decimos qué nivel de acompañamiento tiene sentido para tu empresa ahora mismo.</p>
+      <div class="prefooter-cta__actions"><EmailCta size="lg" variant="dark" /></div>
+    </div>
   </Section>
 </BaseLayout>
 
@@ -152,10 +153,34 @@ const packages = [
   .pkg-badge { position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--color-navy); color:var(--color-white); font-size:var(--text-label-s); font-weight:var(--weight-medium); padding:var(--space-1) var(--space-3); border-radius:var(--radius-full); white-space:nowrap; }
   .pkg-name   { font-size:var(--text-h3); color:var(--color-navy); }
   .pkg-target { color:var(--color-gray-600); }
-  .pkg-hours  { padding-block:var(--space-3); border-block:var(--border-thin); }
+  .pkg-hours  { padding-block:var(--space-3); border-block:var(--border-thin); display:flex; flex-direction:column; gap:var(--space-1); }
+  .pkg-meeting { color:var(--color-gray-600); display:block; }
   .pkg-list   { display:flex; flex-direction:column; gap:var(--space-2); flex:1; }
   .pkg-item   { display:flex; align-items:flex-start; gap:var(--space-2); }
   .pkg-item .body-s { color:var(--color-gray-600); }
+
+  .prefooter-cta {
+    max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .prefooter-cta__title {
+    color: var(--color-white);
+  }
+
+  .prefooter-cta__copy {
+    color: var(--color-gray-400);
+    margin-top: var(--space-4);
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .prefooter-cta__actions {
+    margin-top: var(--space-8);
+    display: flex;
+    justify-content: center;
+  }
 
   @media (max-width:1024px) { .packages-grid { grid-template-columns:repeat(2,1fr); } }
   @media (max-width:640px)  { .packages-grid { grid-template-columns:1fr; } }

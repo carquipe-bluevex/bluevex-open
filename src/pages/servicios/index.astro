@@ -108,11 +108,13 @@ import Timeline from '../../components/ui/Timeline.astro';
 
   <!-- CTA -->
   <Section bg="off-white" size="md" centered>
-    <p class="overline">¿No sabes por dónde empezar?</p>
-    <h2 style="color:var(--color-navy); margin-top: var(--space-3);">Empezamos con una conversación.</h2>
-    <p class="body-l mt-4" style="color:var(--color-gray-600); max-width:480px; margin-inline:auto;">Analizamos tu situación, identificamos los riesgos reales y te recomendamos el servicio de entrada más adecuado.</p>
-    <div class="mt-8">
-      <EmailCta size="lg" />
+    <div class="prefooter-cta">
+      <p class="overline">¿No sabes por dónde empezar?</p>
+      <h2 class="prefooter-cta__title">Empezamos con una conversación.</h2>
+      <p class="body-l prefooter-cta__copy">Analizamos tu situación, identificamos los riesgos reales y te recomendamos el servicio de entrada más adecuado.</p>
+      <div class="prefooter-cta__actions">
+        <EmailCta size="lg" />
+      </div>
     </div>
   </Section>
 
@@ -261,6 +263,30 @@ import Timeline from '../../components/ui/Timeline.astro';
 
   .timeline-cta {
     margin-top: var(--space-10);
+    display: flex;
+    justify-content: center;
+  }
+
+  .prefooter-cta {
+    max-width: 720px;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .prefooter-cta__title {
+    color: var(--color-navy);
+    margin-top: var(--space-3);
+  }
+
+  .prefooter-cta__copy {
+    color: var(--color-gray-600);
+    margin-top: var(--space-4);
+    max-width: 520px;
+    margin-inline: auto;
+  }
+
+  .prefooter-cta__actions {
+    margin-top: var(--space-8);
     display: flex;
     justify-content: center;
   }
