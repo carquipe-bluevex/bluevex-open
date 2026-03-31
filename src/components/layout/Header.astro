@@ -374,45 +374,68 @@ const navLinks = [
 </style>
 
 <script>
-  const toggle = document.getElementById('menu-toggle');
-  const menu   = document.getElementById('mobile-menu');
-  const header = document.getElementById('site-header');
+  (() => {
+    const BOUND_KEY = '__bluevexHeaderBound';
+    const SCROLL_THRESHOLD = 10;
 
-  const SCROLL_THRESHOLD = 10;
+    const getElements = () => {
+      const toggle = document.getElementById('menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+      const header = document.getElementById('site-header');
 
-  const closeMenu = () => {
-    menu?.classList.remove('open');
-    toggle?.setAttribute('aria-expanded', 'false');
-    menu?.setAttribute('aria-hidden', 'true');
-  };
+      if (!(toggle instanceof HTMLButtonElement)) return null;
+      if (!(menu instanceof HTMLElement)) return null;
+      if (!(header instanceof HTMLElement)) return null;
 
-  toggle?.addEventListener('click', () => {
-    const isOpen = menu?.classList.contains('open');
-    menu?.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(!isOpen));
-    menu?.setAttribute('aria-hidden', String(isOpen));
-  });
+      return { toggle, menu, header };
+    };
 
-  // Cerrar menú al hacer click fuera
-  document.addEventListener('click', (e) => {
-    const isClickInsideHeader = header?.contains(e.target as Node);
-    const isMenuOpen = menu?.classList.contains('open');
+    const closeMenu = () => {
+      const elements = getElements();
+      if (!elements) return;
 
-    if (!isClickInsideHeader && isMenuOpen) {
-      closeMenu();
+      elements.menu.classList.remove('open');
+      elements.toggle.setAttribute('aria-expanded', 'false');
+      elements.menu.setAttribute('aria-hidden', 'true');
+    };
+
+    const updateHeaderState = () => {
+      const elements = getElements();
+      if (!elements) return;
+
+      const scrolled = window.scrollY > SCROLL_THRESHOLD;
+      elements.header.classList.toggle('floating', scrolled);
+    };
+
+    if (!window[BOUND_KEY]) {
+      document.addEventListener('click', (event) => {
+        const elements = getElements();
+        if (!elements) return;
+
+        const target = event.target;
+        if (!(target instanceof Node)) return;
+
+        if (target === elements.toggle || elements.toggle.contains(target)) {
+          const isOpen = elements.menu.classList.contains('open');
+          elements.menu.classList.toggle('open');
+          elements.toggle.setAttribute('aria-expanded', String(!isOpen));
+          elements.menu.setAttribute('aria-hidden', String(isOpen));
+          return;
+        }
+
+        if (!elements.header.contains(target) && elements.menu.classList.contains('open')) {
+          closeMenu();
+        }
+      });
+
+      window.addEventListener('scroll', updateHeaderState, { passive: true });
+      document.addEventListener('astro:page-load', () => {
+        closeMenu();
+        updateHeaderState();
+      });
+      window[BOUND_KEY] = true;
     }
-  });
 
-  const updateHeaderState = () => {
-    const scrolled = window.scrollY > SCROLL_THRESHOLD;
-
-    header?.classList.toggle('floating', scrolled);
-
-    if (header?.classList.contains('header--transparent')) {
-      header?.classList.toggle('header--transparent', !scrolled);
-    }
-  };
-
-  updateHeaderState();
-  window.addEventListener('scroll', updateHeaderState);
+    updateHeaderState();
+  })();
 </script>

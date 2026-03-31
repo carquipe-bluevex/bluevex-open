@@ -144,7 +144,31 @@ const values = [
 
   .model-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-4); }
 
+  @media (max-width:1024px) {
+    .origin-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+      align-items: start;
+    }
+
+    .origin-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
   @media (max-width:768px) {
+    .origin-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+      padding: var(--space-5);
+    }
+
+    .stat-card__number {
+      font-size: 2rem;
+    }
+
     .inspiration-grid { grid-template-columns:1fr; }
   }
 
