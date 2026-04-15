@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <!-- Home Page -->
   <url>
-    <loc>https://www.bluevex.tech/</loc>
+    <loc>https://bluevex.tech/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -11,28 +11,28 @@
 
   <!-- Main Pages -->
   <url>
-    <loc>https://www.bluevex.tech/servicios</loc>
+    <loc>https://bluevex.tech/servicios</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/nosotros</loc>
+    <loc>https://bluevex.tech/nosotros</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/talento</loc>
+    <loc>https://bluevex.tech/talento</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/contacto</loc>
+    <loc>https://bluevex.tech/contacto</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
@@ -40,28 +40,28 @@
 
   <!-- Services -->
   <url>
-    <loc>https://www.bluevex.tech/servicios/soporte</loc>
+    <loc>https://bluevex.tech/servicios/soporte</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/servicios/proyectos</loc>
+    <loc>https://bluevex.tech/servicios/proyectos</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/servicios/cto-as-a-service</loc>
+    <loc>https://bluevex.tech/servicios/cto-as-a-service</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/servicios/licenciamiento</loc>
+    <loc>https://bluevex.tech/servicios/licenciamiento</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -69,28 +69,28 @@
 
   <!-- Legal Pages -->
   <url>
-    <loc>https://www.bluevex.tech/aviso-legal</loc>
+    <loc>https://bluevex.tech/aviso-legal</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/privacidad</loc>
+    <loc>https://bluevex.tech/privacidad</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/cookies</loc>
+    <loc>https://bluevex.tech/cookies</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
-    <loc>https://www.bluevex.tech/condiciones-de-uso</loc>
+    <loc>https://bluevex.tech/condiciones-de-uso</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>

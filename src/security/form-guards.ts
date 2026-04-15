@@ -1,4 +1,4 @@
-const DEFAULT_SITE = "https://www.bluevex.tech";
+const DEFAULT_SITE = "https://bluevex.tech";
 
 type RateLimitBucket = {
   count: number;

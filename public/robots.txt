@@ -11,4 +11,4 @@ Disallow: /design-system
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://www.bluevex.tech/sitemap.xml
+Sitemap: https://bluevex.tech/sitemap.xml

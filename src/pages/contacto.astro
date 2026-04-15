@@ -65,14 +65,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
           <div class="form-row">
             <div class="form-field">
               <label class="form-label" for="tamaño">Tamaño de la compañía</label>
-              <select class="form-input form-select" id="tamaño" name="tamaño">
-                <option value="">Selecciona una opción</option>
-                <option value="1-10">1 - 10 empleados</option>
-                <option value="11-50">11 - 50 empleados</option>
-                <option value="51-200">51 - 200 empleados</option>
-                <option value="201-1000">201 - 1000 empleados</option>
-                <option value="1000+">1000+ empleados</option>
-              </select>
+              <div class="select-wrap">
+                <select class="form-input form-select" id="tamaño" name="tamaño">
+                  <option value="">Selecciona una opción</option>
+                  <option value="1-10">1 - 10 empleados</option>
+                  <option value="11-50">11 - 50 empleados</option>
+                  <option value="51-200">51 - 200 empleados</option>
+                  <option value="201-1000">201 - 1000 empleados</option>
+                  <option value="1000+">1000+ empleados</option>
+                </select>
+              </div>
             </div>
             <div class="form-field">
               <label class="form-label" for="telefono">Teléfono</label>
@@ -82,14 +84,16 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
 
           <div class="form-field">
             <label class="form-label" for="servicio">¿Por dónde quieres empezar?</label>
-            <select class="form-input form-select" id="servicio" name="servicio">
-              <option value="">Selecciona una opción</option>
-              <option value="soporte">Soporte Tecnológico</option>
-              <option value="proyectos">Proyecto de ingeniería</option>
-              <option value="cto">CTO as a Service</option>
-              <option value="licenciamiento">Licenciamiento</option>
-              <option value="general">Todavía no lo sé</option>
-            </select>
+            <div class="select-wrap">
+              <select class="form-input form-select" id="servicio" name="servicio">
+                <option value="">Selecciona una opción</option>
+                <option value="soporte">Soporte Tecnológico</option>
+                <option value="proyectos">Proyecto de ingeniería</option>
+                <option value="cto">CTO as a Service</option>
+                <option value="licenciamiento">Licenciamiento</option>
+                <option value="general">Todavía no lo sé</option>
+              </select>
+            </div>
           </div>
 
           <div class="form-field">
@@ -448,7 +452,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
     font-size: 0.95rem;
     color: var(--color-gray-800);
     background: rgba(255, 255, 255, 0.95);
-    transition: all 0.25s ease;
+    transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
     outline: none;
     -webkit-appearance: none;
     letter-spacing: 0.01em;
@@ -470,11 +474,39 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '';
     font-size: 0.95rem;
   }
 
-  .form-select {
-    cursor: pointer;
+  .select-wrap {
+    position: relative;
+  }
+
+  .select-wrap::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232f4858' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 12px center;
+    background-position: center;
+    background-size: 16px 16px;
+    transform: translateY(-50%) rotate(0deg);
+    transform-origin: 50% 50%;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0.9;
+  }
+
+  .select-wrap:focus-within::after {
+    transform: translateY(-50%) rotate(180deg);
+    opacity: 1;
+  }
+
+  .form-select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: none;
     padding-right: 36px;
   }
 

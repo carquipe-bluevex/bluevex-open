@@ -3,7 +3,7 @@ import vercel from "@astrojs/vercel";
 
 export default defineConfig({
   output: "static",
-  site: "https://www.bluevex.tech",
+  site: "https://bluevex.tech",
   compressHTML: true,
   vite: {
     build: {
